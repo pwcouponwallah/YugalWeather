@@ -14,11 +14,15 @@
             --yugal-accent: #f39c12;
             --yugal-dark: #2c3e50;
             --yugal-light: #ecf0f1;
+            --yugal-success: #27ae60;
+            --yugal-danger: #e74c3c;
+            --yugal-warning: #f1c40f;
         }
 
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
             background-color: #f8f9fa;
+            scroll-behavior: smooth;
         }
 
         .navbar {
@@ -36,17 +40,38 @@
             color: white;
             border-radius: 0 0 20px 20px;
             padding: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
         }
 
         .map-container {
             height: 500px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 1px solid #dee2e6;
         }
 
         .weather-card {
             border-left: 4px solid var(--yugal-accent);
             transition: all 0.3s;
+            border-radius: 8px;
         }
 
         .weather-card:hover {
@@ -70,23 +95,24 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s;
         }
 
         .report-btn:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(90deg);
             background-color: #e67e22;
         }
 
         .severity-low {
-            border-left-color: #2ecc71;
+            border-left-color: var(--yugal-success);
         }
 
         .severity-medium {
-            border-left-color: #f39c12;
+            border-left-color: var(--yugal-warning);
         }
 
         .severity-high {
-            border-left-color: #e74c3c;
+            border-left-color: var(--yugal-danger);
         }
 
         .legend {
@@ -94,11 +120,15 @@
             padding: 10px;
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
         }
 
         .yugal-avatar {
-            width: 40px;
-            height: 40px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             background-color: var(--yugal-primary);
             color: white;
@@ -106,6 +136,105 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            font-size: 1.5rem;
+            margin: 0 auto 15px;
+        }
+
+        .feature-card {
+            border: none;
+            border-radius: 10px;
+            transition: all 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--yugal-primary);
+        }
+
+        .instruction-step {
+            display: flex;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            background-color: var(--yugal-primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .benefit-card {
+            border: none;
+            border-radius: 10px;
+            padding: 1.5rem;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            height: 100%;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .benefit-icon {
+            font-size: 1.75rem;
+            color: var(--yugal-primary);
+            margin-bottom: 1rem;
+        }
+
+        .preview-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .remove-image-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .image-preview-container {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: var(--yugal-primary);
+        }
+
+        .nav-pills .nav-link {
+            color: var(--yugal-dark);
         }
 
         @media (max-width: 768px) {
@@ -116,14 +245,19 @@
             .hero-section {
                 padding: 2rem 0;
             }
+            
+            .display-4 {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
-<body>
+<body data-bs-spy="scroll" data-bs-target="#navbarNav">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="bi bi-cloud-sun-fill me-2" style="color: var(--yugal-primary);"></i>
                 <span class="yugal-brand">Yugal</span>Weather
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -132,31 +266,80 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#"><i class="bi bi-map me-1"></i> Map</a>
+                        <a class="nav-link active" href="#map"><i class="bi bi-map me-1"></i> Live Map</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#reports"><i class="bi bi-list-ul me-1"></i> Recent Reports</a>
+                        <a class="nav-link" href="#reports"><i class="bi bi-list-ul me-1"></i> Reports</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#analytics"><i class="bi bi-graph-up me-1"></i> Analytics</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="#features"><i class="bi bi-stars me-1"></i> Features</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#about"><i class="bi bi-info-circle me-1"></i> About</a>
                     </li>
                 </ul>
+                <button class="btn btn-outline-light ms-3 d-none d-lg-block" data-bs-toggle="modal" data-bs-target="#reportModal">
+                    <i class="bi bi-plus-lg me-1"></i> Report
+                </button>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero-section">
-        <div class="container text-center">
-            <h1 class="display-4 fw-bold mb-3">Hyper-Local Weather Intelligence</h1>
-            <p class="lead mb-4">Real microclimate reports from farmers like you</p>
-            <div class="d-flex justify-content-center flex-wrap gap-2">
-                <span class="badge bg-white text-dark"><i class="bi bi-geo-alt-fill text-primary me-1"></i> Field-Level Accuracy</span>
-                <span class="badge bg-white text-dark"><i class="bi bi-people-fill text-success me-1"></i> Crowdsourced Data</span>
-                <span class="badge bg-white text-dark"><i class="bi bi-lightning-charge-fill text-warning me-1"></i> Early Warning System</span>
+        <div class="container hero-content text-center">
+            <h1 class="display-4 fw-bold mb-3">Field-Level Weather Intelligence</h1>
+            <p class="lead mb-4">Real microclimate reports from farmers in your area</p>
+            <div class="d-flex justify-content-center flex-wrap gap-2 mb-4">
+                <span class="badge bg-white text-dark"><i class="bi bi-geo-alt-fill text-primary me-1"></i> Hyper-Local Data</span>
+                <span class="badge bg-white text-dark"><i class="bi bi-people-fill text-success me-1"></i> Community Powered</span>
+                <span class="badge bg-white text-dark"><i class="bi bi-lightning-charge-fill text-warning me-1"></i> Early Alerts</span>
+            </div>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="#features" class="btn btn-light btn-lg px-4">
+                    <i class="bi bi-play-circle me-2"></i> How It Works
+                </a>
+                <button class="btn btn-outline-light btn-lg px-4" data-bs-toggle="modal" data-bs-target="#reportModal">
+                    <i class="bi bi-plus-lg me-2"></i> Submit Report
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Features -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card card p-4 h-100">
+                        <div class="feature-icon text-primary">
+                            <i class="bi bi-geo"></i>
+                        </div>
+                        <h4>Pinpoint Accuracy</h4>
+                        <p class="text-muted">See weather impacts at the field level, not just regional forecasts that often miss microclimates.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card card p-4 h-100">
+                        <div class="feature-icon text-success">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h4>Crop Protection</h4>
+                        <p class="text-muted">Get early warnings about frost, floods, or droughts that could damage your crops.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card card p-4 h-100">
+                        <div class="feature-icon text-warning">
+                            <i class="bi bi-people"></i>
+                        </div>
+                        <h4>Community Network</h4>
+                        <p class="text-muted">Connect with other farmers sharing real-time observations from nearby fields.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -164,16 +347,24 @@
     <!-- Main Content -->
     <div class="container my-5">
         <!-- Weather Map -->
-        <div class="row mb-5">
+        <div class="row mb-5" id="map">
             <div class="col-12">
                 <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header bg-white">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
                         <h4 class="mb-0"><i class="bi bi-map me-2"></i> Live Weather Impact Map</h4>
+                        <div>
+                            <button class="btn btn-sm btn-outline-secondary me-2" id="locateMeBtn">
+                                <i class="bi bi-geo-alt"></i> Locate Me
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary" id="refreshMapBtn">
+                                <i class="bi bi-arrow-clockwise"></i> Refresh
+                            </button>
+                        </div>
                     </div>
-                    <div class="card-body p-0">
+                    <div class="card-body p-0 position-relative">
                         <div id="weatherMap" class="map-container"></div>
-                        <div class="legend p-2">
-                            <div class="d-flex flex-wrap gap-3">
+                        <div class="legend">
+                            <div class="d-flex flex-column gap-1 small">
                                 <div><i class="bi bi-circle-fill text-success me-1"></i> Frost Report</div>
                                 <div><i class="bi bi-circle-fill text-primary me-1"></i> Flood Report</div>
                                 <div><i class="bi bi-circle-fill text-warning me-1"></i> Drought Report</div>
@@ -189,8 +380,9 @@
         <div class="row mb-5">
             <div class="col-md-6 mb-4">
                 <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-header bg-white">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
                         <h5 class="mb-0"><i class="bi bi-cloud-sun me-2"></i> Current Conditions</h5>
+                        <small class="text-muted" id="lastUpdated">Updated: Just now</small>
                     </div>
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-3">
@@ -199,7 +391,8 @@
                             </div>
                             <div>
                                 <h2 class="mb-0" id="currentTemp">--°C</h2>
-                                <div id="weatherDescription">Loading...</div>
+                                <div id="weatherDescription">Loading weather data...</div>
+                                <small class="text-muted" id="locationText">Detecting your location...</small>
                             </div>
                         </div>
                         <div class="row">
@@ -251,6 +444,15 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-borderless mb-0" id="forecastTable">
+                                <thead>
+                                    <tr>
+                                        <th>Day</th>
+                                        <th>Conditions</th>
+                                        <th class="text-end">High</th>
+                                        <th class="text-end">Low</th>
+                                        <th class="text-end">Rain</th>
+                                    </tr>
+                                </thead>
                                 <tbody>
                                     <!-- Forecast rows will be inserted here -->
                                 </tbody>
@@ -261,24 +463,139 @@
             </div>
         </div>
 
+        <!-- How It Works -->
+        <section class="row mb-5 py-4" id="features">
+            <div class="col-12 mb-4 text-center">
+                <h2 class="fw-bold"><i class="bi bi-stars me-2 text-primary"></i> How YugalWeather Works</h2>
+                <p class="lead text-muted">Simple steps to protect your crops with community-powered weather data</p>
+            </div>
+            
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="mb-4"><i class="bi bi-list-ol me-2 text-primary"></i> Quick Start Guide</h4>
+                        
+                        <div class="instruction-step">
+                            <div class="step-number">1</div>
+                            <div>
+                                <h5>Submit a Report</h5>
+                                <p class="text-muted mb-0">Click the "+" button to report frost, floods, or other weather impacts in your fields. Add photos for better documentation.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="instruction-step">
+                            <div class="step-number">2</div>
+                            <div>
+                                <h5>View Local Reports</h5>
+                                <p class="text-muted mb-0">Check the map for recent reports from nearby farms. Color-coded pins show different weather events.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="instruction-step">
+                            <div class="step-number">3</div>
+                            <div>
+                                <h5>Get Alerts</h5>
+                                <p class="text-muted mb-0">Receive notifications when severe weather is reported near your location.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="instruction-step">
+                            <div class="step-number">4</div>
+                            <div>
+                                <h5>Plan Accordingly</h5>
+                                <p class="text-muted mb-0">Use real field data to make informed decisions about irrigation, frost protection, and harvesting.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 text-center">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reportModal">
+                                <i class="bi bi-plus-lg me-1"></i> Submit Your First Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="mb-4"><i class="bi bi-award me-2 text-primary"></i> Key Benefits</h4>
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="benefit-card">
+                                    <div class="benefit-icon">
+                                        <i class="bi bi-thermometer-snow"></i>
+                                    </div>
+                                    <h5>Frost Protection</h5>
+                                    <p class="text-muted small">Get early warnings about temperature drops that could damage sensitive crops.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="benefit-card">
+                                    <div class="benefit-icon">
+                                        <i class="bi bi-droplet"></i>
+                                    </div>
+                                    <h5>Flood Alerts</h5>
+                                    <p class="text-muted small">See where heavy rains are causing field flooding before it reaches your land.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="benefit-card">
+                                    <div class="benefit-icon">
+                                        <i class="bi bi-sun"></i>
+                                    </div>
+                                    <h5>Drought Monitoring</h5>
+                                    <p class="text-muted small">Track soil moisture conditions across your region to optimize irrigation.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="benefit-card">
+                                    <div class="benefit-icon">
+                                        <i class="bi bi-wind"></i>
+                                    </div>
+                                    <h5>Storm Tracking</h5>
+                                    <p class="text-muted small">Monitor wind and hail damage reports to assess potential crop impacts.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Recent Reports -->
         <div class="row mb-5" id="reports">
             <div class="col-12">
                 <div class="card border-0 shadow-sm">
                     <div class="card-header bg-white d-flex justify-content-between align-items-center">
                         <h4 class="mb-0"><i class="bi bi-list-ul me-2"></i> Recent Community Reports</h4>
-                        <button class="btn btn-sm btn-outline-primary" id="refreshReportsBtn">
-                            <i class="bi bi-arrow-clockwise"></i> Refresh
-                        </button>
+                        <div>
+                            <button class="btn btn-sm btn-outline-secondary me-2" id="filterReportsBtn">
+                                <i class="bi bi-funnel"></i> Filter
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary" id="refreshReportsBtn">
+                                <i class="bi bi-arrow-clockwise"></i> Refresh
+                            </button>
+                        </div>
                     </div>
                     <div class="card-body">
+                        <div class="alert alert-info mb-3">
+                            <i class="bi bi-info-circle me-2"></i> These reports are submitted by farmers like you. Help your community by sharing what you're seeing in your fields.
+                        </div>
                         <div id="reportsLoading" class="text-center py-4">
                             <div class="spinner-border text-primary" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
+                            <p class="mt-2 mb-0">Loading community reports...</p>
                         </div>
                         <div class="list-group" id="reportsList">
                             <!-- Reports will be inserted here -->
+                        </div>
+                        <div class="text-center mt-3">
+                            <button class="btn btn-outline-primary" id="loadMoreReportsBtn">
+                                <i class="bi bi-arrow-down-circle me-1"></i> Load More Reports
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -293,33 +610,59 @@
                         <h4 class="mb-0"><i class="bi bi-graph-up me-2"></i> Weather Impact Analytics</h4>
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="chart-container" style="position: relative; height: 300px;">
-                                    <canvas id="reportsChart"></canvas>
+                        <ul class="nav nav-pills mb-4" id="analyticsTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="weekly-tab" data-bs-toggle="pill" data-bs-target="#weekly" type="button" role="tab">Weekly</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="monthly-tab" data-bs-toggle="pill" data-bs-target="#monthly" type="button" role="tab">Monthly</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="seasonal-tab" data-bs-toggle="pill" data-bs-target="#seasonal" type="button" role="tab">Seasonal</button>
+                            </li>
+                        </ul>
+                        
+                        <div class="tab-content" id="analyticsTabContent">
+                            <div class="tab-pane fade show active" id="weekly" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="chart-container" style="position: relative; height: 300px;">
+                                            <canvas id="reportsChart"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <h6 class="text-muted mb-2">Total Reports</h6>
+                                                <h3 class="mb-0" id="totalReports">0</h3>
+                                                <small class="text-success"><i class="bi bi-arrow-up"></i> <span id="reportChange">0%</span> from last week</small>
+                                            </div>
+                                        </div>
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <h6 class="text-muted mb-2">Most Reported Issue</h6>
+                                                <h5 class="mb-1" id="topIssue">--</h5>
+                                                <small class="text-muted"><span id="topIssueCount">0</span> reports</small>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h6 class="text-muted mb-2">Active Contributors</h6>
+                                                <h5 class="mb-1" id="activeUsers">0</h5>
+                                                <small class="text-muted">this week</small>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="card mb-3">
-                                    <div class="card-body">
-                                        <h6 class="text-muted mb-2">Total Reports</h6>
-                                        <h3 class="mb-0" id="totalReports">0</h3>
-                                        <small class="text-success"><i class="bi bi-arrow-up"></i> <span id="reportChange">0%</span> from last week</small>
-                                    </div>
+                            <div class="tab-pane fade" id="monthly" role="tabpanel">
+                                <div class="alert alert-info">
+                                    <i class="bi bi-info-circle me-2"></i> Monthly analytics coming soon. Check back later!
                                 </div>
-                                <div class="card mb-3">
-                                    <div class="card-body">
-                                        <h6 class="text-muted mb-2">Most Reported Issue</h6>
-                                        <h5 class="mb-1" id="topIssue">--</h5>
-                                        <small class="text-muted"><span id="topIssueCount">0</span> reports</small>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h6 class="text-muted mb-2">Active Contributors</h6>
-                                        <h5 class="mb-1" id="activeUsers">0</h5>
-                                        <small class="text-muted">this month</small>
-                                    </div>
+                            </div>
+                            <div class="tab-pane fade" id="seasonal" role="tabpanel">
+                                <div class="alert alert-info">
+                                    <i class="bi bi-info-circle me-2"></i> Seasonal trends will be available after we collect more data in your area.
                                 </div>
                             </div>
                         </div>
@@ -339,21 +682,21 @@
                         <div class="row mt-4">
                             <div class="col-md-4 mb-4">
                                 <div class="p-3">
-                                    <div class="yugal-avatar mx-auto mb-3">Y</div>
+                                    <div class="yugal-avatar">Y</div>
                                     <h5 class="mt-3">For Farmers</h5>
                                     <p class="text-muted">Get field-specific frost, flood, and drought alerts that regional forecasts miss.</p>
                                 </div>
                             </div>
                             <div class="col-md-4 mb-4">
                                 <div class="p-3">
-                                    <div class="yugal-avatar mx-auto mb-3">W</div>
+                                    <div class="yugal-avatar">W</div>
                                     <h5 class="mt-3">Community Powered</h5>
                                     <p class="text-muted">Real reports from real people in your exact area.</p>
                                 </div>
                             </div>
                             <div class="col-md-4 mb-4">
                                 <div class="p-3">
-                                    <div class="yugal-avatar mx-auto mb-3">100%</div>
+                                    <div class="yugal-avatar">100%</div>
                                     <h5 class="mt-3">Free Forever</h5>
                                     <p class="text-muted">No subscriptions. No paywalls. Built to serve.</p>
                                 </div>
@@ -363,9 +706,9 @@
                         <div class="mt-4">
                             <h5 class="mb-3">Our Data Sources</h5>
                             <div class="d-flex flex-wrap justify-content-center gap-3">
-                                <img src="https://app.matatika.com/assets/logos/extractors/openweathermap.png" alt="OpenWeatherMap" style="height: 50px;">
-                                <img src="https://cdn.worldvectorlogo.com/logos/google-sheets-full-logo-1.svg" alt="Google Sheets" style="height: 80px;">
-                                <img src="https://corevaluetech.com/assets/illustrations/leaflet.svg" alt="Leaflet" style="height: 45px;">
+                                <img src="https://openweathermap.org/themes/openweathermap/assets/img/logo_white_cropped.png" alt="OpenWeatherMap" style="height: 30px;">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Google_Sheets_2020_Logo.svg/1200px-Google_Sheets_2020_Logo.svg.png" alt="Google Sheets" style="height: 30px;">
+                                <img src="https://leafletjs.com/docs/images/logo.png" alt="Leaflet" style="height: 30px;">
                             </div>
                         </div>
                     </div>
@@ -384,48 +727,71 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Submit Weather Report</h5>
+                    <h5 class="modal-title"><i class="bi bi-cloud-upload me-2"></i> Submit Weather Report</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="alert alert-info mb-3">
+                        <i class="bi bi-info-circle me-2"></i> Your report helps farmers in your area make better decisions. Please be accurate and detailed.
+                    </div>
+                    
                     <form id="weatherReportForm">
                         <div class="mb-3">
-                            <label class="form-label">Weather Type</label>
+                            <label class="form-label">Weather Type <span class="text-danger">*</span></label>
                             <select class="form-select" id="reportType" required>
-                                <option value="">Select type</option>
+                                <option value="">Select weather type...</option>
                                 <option value="frost">Frost</option>
                                 <option value="flood">Flood</option>
                                 <option value="drought">Drought</option>
                                 <option value="storm">Storm Damage</option>
+                                <option value="hail">Hail</option>
+                                <option value="wind">High Winds</option>
                                 <option value="other">Other</option>
                             </select>
                         </div>
+                        
                         <div class="mb-3">
-                            <label class="form-label">Severity</label>
+                            <label class="form-label">Severity <span class="text-danger">*</span></label>
                             <select class="form-select" id="reportSeverity" required>
-                                <option value="low">Low</option>
-                                <option value="medium" selected>Medium</option>
-                                <option value="high">High</option>
+                                <option value="low">Low - Minor impact</option>
+                                <option value="medium" selected>Medium - Moderate impact</option>
+                                <option value="high">High - Severe impact</option>
                             </select>
                         </div>
+                        
                         <div class="mb-3">
-                            <label class="form-label">Description</label>
-                            <textarea class="form-control" id="reportDescription" rows="3" placeholder="Describe what you're observing..." required></textarea>
+                            <label class="form-label">Description <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="reportDescription" rows="3" placeholder="Describe what you're observing in your fields..." required></textarea>
+                            <small class="text-muted">Example: "Unexpected frost last night damaged strawberry blossoms in northeast quadrant of field."</small>
                         </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Photo Evidence (Optional)</label>
+                            <input type="file" class="form-control" id="reportPhoto" accept="image/*">
+                            <small class="text-muted">Upload a photo showing the weather impact on your crops.</small>
+                            <div id="imagePreview" class="mt-2"></div>
+                        </div>
+                        
                         <div class="mb-3">
                             <label class="form-label">Your Name (Optional)</label>
                             <input type="text" class="form-control" id="reporterName" placeholder="Farmer John">
+                            <small class="text-muted">This will be displayed with your report.</small>
                         </div>
+                        
                         <div class="mb-3">
                             <label class="form-label">Location</label>
                             <div class="alert alert-info py-2">
-                                <i class="bi bi-info-circle me-2"></i> Your current location will be used automatically
+                                <i class="bi bi-geo-alt me-2"></i> <span id="locationStatus">Detecting your location...</span>
                             </div>
                         </div>
-                        <div class="d-grid">
+                        
+                        <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-primary" id="submitReportBtn">
                                 <span class="spinner-border spinner-border-sm me-2" id="submitSpinner" style="display: none;"></span>
-                                Submit Report
+                                <i class="bi bi-send me-2"></i> Submit Report
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                Cancel
                             </button>
                         </div>
                     </form>
@@ -435,29 +801,49 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-4 mt-5">
+    <footer class="bg-dark text-white py-5 mt-5">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 mb-4 mb-md-0">
-                    <h5><span class="yugal-brand">Yugal</span>Weather</h5>
-                    <p class="text-muted mb-0">Precision weather for agriculture and local communities.</p>
-                </div>
-                <div class="col-md-3 mb-4 mb-md-0">
-                    <h6>Links</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-muted">Map</a></li>
-                        <li><a href="#reports" class="text-muted">Reports</a></li>
-                        <li><a href="#analytics" class="text-muted">Analytics</a></li>
-                        <li><a href="#about" class="text-muted">About</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h6>Connect</h6>
-                    <div class="d-flex gap-3">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5 class="d-flex align-items-center mb-3">
+                        <i class="bi bi-cloud-sun-fill me-2" style="color: var(--yugal-primary);"></i>
+                        <span class="yugal-brand">Yugal</span>Weather
+                    </h5>
+                    <p class="text-muted">Precision weather for agriculture and local communities.</p>
+                    <div class="d-flex gap-3 mt-3">
                         <a href="#" class="text-muted"><i class="bi bi-twitter"></i></a>
                         <a href="#" class="text-muted"><i class="bi bi-facebook"></i></a>
                         <a href="#" class="text-muted"><i class="bi bi-github"></i></a>
                     </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+                    <h6>Navigation</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#map" class="text-muted">Live Map</a></li>
+                        <li class="mb-2"><a href="#reports" class="text-muted">Reports</a></li>
+                        <li class="mb-2"><a href="#analytics" class="text-muted">Analytics</a></li>
+                        <li class="mb-2"><a href="#features" class="text-muted">Features</a></li>
+                        <li><a href="#about" class="text-muted">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+                    <h6>Resources</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-muted">Help Center</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted">Farmers Guide</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted">API Docs</a></li>
+                        <li><a href="#" class="text-muted">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h6>Subscribe to Alerts</h6>
+                    <p class="text-muted small">Get email notifications for severe weather in your area.</p>
+                    <form class="mt-3">
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Your email" aria-label="Your email">
+                            <button class="btn btn-primary" type="button">Subscribe</button>
+                        </div>
+                    </form>
                 </div>
             </div>
             <hr class="my-4 bg-secondary">
@@ -474,12 +860,13 @@
     <script>
         // Configuration - Replace with your actual API keys
         const OPENWEATHER_API_KEY = 'b41ebce0340aaa233ed0433f4b17023b'; // This is a placeholder - get a real key from openweathermap.org
-        const GOOGLE_SHEETS_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbx6ci6xL5PsKpBrKMbbP66UYIG-ztVUjzrIicEe2uAd4T3AAv59VDxVqNbc9go_hKD4pg/exec'; // Replace with your deployed Google Apps Script URL
+        const GOOGLE_SHEETS_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbza5S5-REtVvOH8GQWuqGysymxcTrcpBcI_3tPNCTzyv9I792En0DT3n3AfYYoxxZZX/exec'; // Replace with your deployed Google Apps Script URL
         
         // Global variables
         let weatherMap;
         let userLocation = null;
         let reportsChart;
+        let currentReports = [];
         
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
@@ -515,10 +902,29 @@
             // Refresh reports button
             document.getElementById('refreshReportsBtn').addEventListener('click', loadCommunityReports);
             
+            // Locate me button
+            document.getElementById('locateMeBtn').addEventListener('click', centerMapOnUser);
+            
+            // Refresh map button
+            document.getElementById('refreshMapBtn').addEventListener('click', refreshMapData);
+            
+            // Load more reports button
+            document.getElementById('loadMoreReportsBtn').addEventListener('click', loadMoreReports);
+            
             // Report form submission
             document.getElementById('weatherReportForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 submitWeatherReport();
+            });
+            
+            // Image upload preview
+            document.getElementById('reportPhoto').addEventListener('change', function(e) {
+                previewImage(e.target);
+            });
+            
+            // Modal shown event to update location status
+            document.getElementById('reportModal').addEventListener('shown.bs.modal', function() {
+                updateLocationStatus();
             });
         }
         
@@ -535,19 +941,31 @@
                         weatherMap.setView([userLocation.lat, userLocation.lng], 13);
                         
                         // Add a marker for the user's location
-                        L.marker([userLocation.lat, userLocation.lng])
-                            .addTo(weatherMap)
+                        L.marker([userLocation.lat, userLocation.lng], {
+                            icon: L.divIcon({
+                                className: 'user-location-marker',
+                                html: '<i class="bi bi-geo-alt-fill" style="color: #e74c3c; font-size: 24px;"></i>',
+                                iconSize: [24, 24],
+                                iconAnchor: [12, 24]
+                            })
+                        }).addTo(weatherMap)
                             .bindPopup('Your Location')
                             .openPopup();
                         
                         // Load weather data for this location
                         loadWeatherData(userLocation.lat, userLocation.lng);
+                        
+                        // Update location status in report modal
+                        updateLocationStatus();
                     },
                     function(error) {
                         console.error('Error getting location:', error);
                         // Default to a central location if geolocation fails
                         userLocation = { lat: 51.505, lng: -0.09 };
                         loadWeatherData(userLocation.lat, userLocation.lng);
+                        
+                        // Update location status in report modal
+                        document.getElementById('locationStatus').textContent = 'Using default location (enable location services for better accuracy)';
                     }
                 );
             } else {
@@ -555,10 +973,60 @@
                 // Default to a central location
                 userLocation = { lat: 51.505, lng: -0.09 };
                 loadWeatherData(userLocation.lat, userLocation.lng);
+                
+                // Update location status in report modal
+                document.getElementById('locationStatus').textContent = 'Location services not supported by your browser';
+            }
+        }
+        
+        function updateLocationStatus() {
+            if (!userLocation) {
+                document.getElementById('locationStatus').textContent = 'Detecting your location...';
+                return;
+            }
+            
+            // Display coordinates (in a real app, you might reverse geocode to get an address)
+            document.getElementById('locationStatus').innerHTML = `
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                Location detected: ${userLocation.lat.toFixed(4)}, ${userLocation.lng.toFixed(4)}
+            `;
+        }
+        
+        function centerMapOnUser() {
+            if (userLocation) {
+                weatherMap.setView([userLocation.lat, userLocation.lng], 13);
+            } else {
+                alert('Location not available. Please ensure location services are enabled.');
+            }
+        }
+        
+        function refreshMapData() {
+            if (userLocation) {
+                loadWeatherData(userLocation.lat, userLocation.lng);
+                loadCommunityReports();
+                
+                // Show feedback
+                const btn = document.getElementById('refreshMapBtn');
+                const originalHtml = btn.innerHTML;
+                btn.innerHTML = '<i class="bi bi-check2"></i> Updated';
+                btn.classList.remove('btn-outline-primary');
+                btn.classList.add('btn-success');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalHtml;
+                    btn.classList.remove('btn-success');
+                    btn.classList.add('btn-outline-primary');
+                }, 2000);
             }
         }
         
         function loadWeatherData(lat, lng) {
+            // Update last updated time
+            document.getElementById('lastUpdated').textContent = `Updated: ${new Date().toLocaleTimeString()}`;
+            
+            // Update location text
+            document.getElementById('locationText').textContent = `Near ${lat.toFixed(2)}, ${lng.toFixed(2)}`;
+            
             // Fetch current weather
             fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=${OPENWEATHER_API_KEY}`)
                 .then(response => response.json())
@@ -567,6 +1035,7 @@
                 })
                 .catch(error => {
                     console.error('Error fetching weather data:', error);
+                    document.getElementById('weatherDescription').textContent = 'Weather data unavailable';
                 });
             
             // Fetch forecast
@@ -633,134 +1102,213 @@
             // Show loading state
             reportsList.innerHTML = '';
             loadingElement.style.display = 'block';
+            document.getElementById('loadMoreReportsBtn').style.display = 'none';
             
             // In a real implementation, this would fetch from your Google Sheets backend
             // For this demo, we'll use mock data
             setTimeout(() => {
-                const mockReports = [
-                    {
-                        id: 1,
-                        type: 'frost',
-                        severity: 'high',
-                        description: 'Unexpected frost damaged early strawberry blossoms',
-                        reporter: 'Farm Fresh Co.',
-                        date: '2023-05-15T08:30:00',
-                        lat: userLocation.lat + (Math.random() * 0.1 - 0.05),
-                        lng: userLocation.lng + (Math.random() * 0.1 - 0.05)
-                    },
-                    {
-                        id: 2,
-                        type: 'flood',
-                        severity: 'medium',
-                        description: 'Heavy rains caused field flooding in low-lying areas',
-                        reporter: 'River Valley Farms',
-                        date: '2023-05-14T16:45:00',
-                        lat: userLocation.lat + (Math.random() * 0.1 - 0.05),
-                        lng: userLocation.lng + (Math.random() * 0.1 - 0.05)
-                    },
-                    {
-                        id: 3,
-                        type: 'drought',
-                        severity: 'low',
-                        description: 'Soil moisture levels dropping faster than usual',
-                        reporter: 'Sunny Acres',
-                        date: '2023-05-13T11:20:00',
-                        lat: userLocation.lat + (Math.random() * 0.1 - 0.05),
-                        lng: userLocation.lng + (Math.random() * 0.1 - 0.05)
-                    },
-                    {
-                        id: 4,
-                        type: 'storm',
-                        severity: 'high',
-                        description: 'Hail storm damaged greenhouse structures',
-                        reporter: 'Green Thumb Nursery',
-                        date: '2023-05-12T18:15:00',
-                        lat: userLocation.lat + (Math.random() * 0.1 - 0.05),
-                        lng: userLocation.lng + (Math.random() * 0.1 - 0.05)
-                    }
-                ];
+                currentReports = generateMockReports();
                 
-                // Clear existing markers
+                // Clear existing markers except user location
                 weatherMap.eachLayer(layer => {
-                    if (layer instanceof L.Marker && layer !== weatherMap.getPane('userLocation')) {
-                        weatherMap.removeLayer(layer);
+                    if (layer instanceof L.Marker || layer instanceof L.CircleMarker) {
+                        if (!layer.options.className || layer.options.className !== 'user-location-marker') {
+                            weatherMap.removeLayer(layer);
+                        }
                     }
                 });
                 
-                // Add reports to the list and map
-                mockReports.forEach(report => {
-                    // Add to list
-                    const reportElement = document.createElement('a');
-                    reportElement.href = '#';
-                    reportElement.className = 'list-group-item list-group-item-action';
-                    
-                    let severityClass = '';
-                    let severityIcon = '';
-                    
-                    switch(report.severity) {
-                        case 'low':
-                            severityClass = 'severity-low';
-                            severityIcon = 'bi-exclamation-circle text-success';
-                            break;
-                        case 'medium':
-                            severityClass = 'severity-medium';
-                            severityIcon = 'bi-exclamation-triangle text-warning';
-                            break;
-                        case 'high':
-                            severityClass = 'severity-high';
-                            severityIcon = 'bi-exclamation-octagon text-danger';
-                            break;
-                    }
-                    
-                    const reportDate = new Date(report.date);
-                    const timeAgo = getTimeAgo(reportDate);
-                    
-                    reportElement.innerHTML = `
-                        <div class="d-flex w-100 justify-content-between ${severityClass}">
-                            <div>
-                                <h6 class="mb-1 text-capitalize">${report.type} <i class="bi ${severityIcon} ms-1"></i></h6>
-                                <p class="mb-1">${report.description}</p>
-                                <small class="text-muted">Reported by ${report.reporter}</small>
-                            </div>
-                            <small class="text-muted">${timeAgo}</small>
-                        </div>
-                    `;
-                    
-                    reportsList.appendChild(reportElement);
-                    
-                    // Add to map
-                    let markerColor;
-                    switch(report.type) {
-                        case 'frost': markerColor = '#2ecc71'; break;
-                        case 'flood': markerColor = '#3498db'; break;
-                        case 'drought': markerColor = '#f39c12'; break;
-                        case 'storm': markerColor = '#e74c3c'; break;
-                        default: markerColor = '#9b59b6';
-                    }
-                    
-                    const marker = L.circleMarker([report.lat, report.lng], {
-                        radius: 8,
-                        fillColor: markerColor,
-                        color: '#fff',
-                        weight: 1,
-                        opacity: 1,
-                        fillOpacity: 0.8
-                    }).addTo(weatherMap);
-                    
-                    marker.bindPopup(`
-                        <b>${report.type.toUpperCase()} REPORT</b><br>
-                        <small>${reportDate.toLocaleString()}</small><br><br>
-                        <i>${report.description}</i><br><br>
-                        <small>Reported by: ${report.reporter}</small>
-                    `);
-                });
+                // Display first 5 reports
+                displayReports(currentReports.slice(0, 5));
                 
                 // Hide loading state
                 loadingElement.style.display = 'none';
                 
+                // Show load more button if there are more reports
+                if (currentReports.length > 5) {
+                    document.getElementById('loadMoreReportsBtn').style.display = 'inline-block';
+                }
+                
                 // Update analytics
-                updateAnalytics(mockReports);
+                updateAnalytics(currentReports);
             }, 1000);
+        }
+        
+        function loadMoreReports() {
+            const reportsList = document.getElementById('reportsList');
+            const currentlyDisplayed = reportsList.children.length;
+            
+            // Display next 5 reports
+            displayReports(currentReports.slice(currentlyDisplayed, currentlyDisplayed + 5));
+            
+            // Hide load more button if we've shown all reports
+            if (reportsList.children.length >= currentReports.length) {
+                document.getElementById('loadMoreReportsBtn').style.display = 'none';
+            }
+        }
+        
+        function displayReports(reports) {
+            const reportsList = document.getElementById('reportsList');
+            
+            reports.forEach(report => {
+                // Add to list
+                const reportElement = document.createElement('a');
+                reportElement.href = '#';
+                reportElement.className = 'list-group-item list-group-item-action';
+                
+                let severityClass = '';
+                let severityIcon = '';
+                let severityText = '';
+                
+                switch(report.severity) {
+                    case 'low':
+                        severityClass = 'severity-low';
+                        severityIcon = 'bi-exclamation-circle text-success';
+                        severityText = 'Low Severity';
+                        break;
+                    case 'medium':
+                        severityClass = 'severity-medium';
+                        severityIcon = 'bi-exclamation-triangle text-warning';
+                        severityText = 'Medium Severity';
+                        break;
+                    case 'high':
+                        severityClass = 'severity-high';
+                        severityIcon = 'bi-exclamation-octagon text-danger';
+                        severityText = 'High Severity';
+                        break;
+                }
+                
+                const reportDate = new Date(report.date);
+                const timeAgo = getTimeAgo(reportDate);
+                
+                reportElement.innerHTML = `
+                    <div class="d-flex w-100 justify-content-between ${severityClass}">
+                        <div>
+                            <div class="d-flex align-items-center mb-1">
+                                <h6 class="mb-0 text-capitalize">${report.type}</h6>
+                                <span class="badge bg-light text-dark ms-2"><i class="bi ${severityIcon} me-1"></i> ${severityText}</span>
+                            </div>
+                            <p class="mb-1">${report.description}</p>
+                            ${report.image ? `<img src="${report.image}" class="preview-image mb-2" style="max-width: 150px;">` : ''}
+                            <small class="text-muted">Reported by ${report.reporter}</small>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-muted d-block">${timeAgo}</small>
+                            <small class="text-muted d-block">${report.distance} km away</small>
+                        </div>
+                    </div>
+                `;
+                
+                reportsList.appendChild(reportElement);
+                
+                // Add to map
+                let markerColor;
+                switch(report.type) {
+                    case 'frost': markerColor = '#2ecc71'; break;
+                    case 'flood': markerColor = '#3498db'; break;
+                    case 'drought': markerColor = '#f39c12'; break;
+                    case 'storm': markerColor = '#e74c3c'; break;
+                    case 'hail': markerColor = '#9b59b6'; break;
+                    default: markerColor = '#34495e';
+                }
+                
+                const marker = L.circleMarker([report.lat, report.lng], {
+                    radius: 8,
+                    fillColor: markerColor,
+                    color: '#fff',
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                }).addTo(weatherMap);
+                
+                let popupContent = `
+                    <b>${report.type.toUpperCase()} REPORT</b><br>
+                    <small>${reportDate.toLocaleString()}</small><br><br>
+                    <i>${report.description}</i><br><br>
+                    <small>Severity: ${report.severity}</small><br>
+                    <small>Reported by: ${report.reporter}</small>
+                `;
+                
+                if (report.image) {
+                    popupContent += `<br><img src="${report.image}" style="max-width: 150px; margin-top: 10px;">`;
+                }
+                
+                marker.bindPopup(popupContent);
+            });
+        }
+        
+        function generateMockReports() {
+            if (!userLocation) return [];
+            
+            const reportTypes = ['frost', 'flood', 'drought', 'storm', 'hail', 'wind'];
+            const reporters = ['Farm Fresh Co.', 'River Valley Farms', 'Sunny Acres', 'Green Thumb Nursery', 'Organic Valley', 'Heritage Farms'];
+            const severities = ['low', 'medium', 'high'];
+            const descriptions = [
+                'Unexpected frost damaged early strawberry blossoms',
+                'Heavy rains caused field flooding in low-lying areas',
+                'Soil moisture levels dropping faster than usual',
+                'Hail storm damaged greenhouse structures',
+                'High winds knocked down corn plants in north field',
+                'Extended dry period stressing young plants'
+            ];
+            
+            const mockImages = [
+                'https://images.unsplash.com/photo-1518604666860-9ed391f76460?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+                'https://images.unsplash.com/photo-1560264281-4b7b7d872f58?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+                'https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'
+            ];
+            
+            const mockReports = [];
+            const now = new Date();
+            
+            for (let i = 0; i < 15; i++) {
+                const type = reportTypes[Math.floor(Math.random() * reportTypes.length)];
+                const severity = severities[Math.floor(Math.random() * severities.length)];
+                const reporter = reporters[Math.floor(Math.random() * reporters.length)];
+                const description = descriptions[Math.floor(Math.random() * descriptions.length)];
+                
+                // Generate random location near user (within 50km)
+                const lat = userLocation.lat + (Math.random() * 0.5 - 0.25);
+                const lng = userLocation.lng + (Math.random() * 0.5 - 0.25);
+                
+                // Calculate distance from user
+                const distance = calculateDistance(userLocation.lat, userLocation.lng, lat, lng);
+                
+                // Random date in past 7 days
+                const date = new Date(now - Math.random() * 7 * 24 * 60 * 60 * 1000);
+                
+                mockReports.push({
+                    id: i + 1,
+                    type,
+                    severity,
+                    description,
+                    reporter,
+                    date: date.toISOString(),
+                    lat,
+                    lng,
+                    distance: distance.toFixed(1),
+                    image: Math.random() > 0.7 ? mockImages[Math.floor(Math.random() * mockImages.length)] : null
+                });
+            }
+            
+            // Sort by date (newest first)
+            return mockReports.sort((a, b) => new Date(b.date) - new Date(a.date));
+        }
+        
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Radius of the earth in km
+            const dLat = deg2rad(lat2 - lat1);
+            const dLon = deg2rad(lon2 - lon1); 
+            const a = 
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2); 
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+            return R * c; // Distance in km
+        }
+        
+        function deg2rad(deg) {
+            return deg * (Math.PI/180);
         }
         
         function submitWeatherReport() {
@@ -771,6 +1319,7 @@
             
             const submitBtn = document.getElementById('submitReportBtn');
             const spinner = document.getElementById('submitSpinner');
+            const form = document.getElementById('weatherReportForm');
             
             // Show loading state
             submitBtn.disabled = true;
@@ -787,10 +1336,65 @@
                 timestamp: new Date().toISOString()
             };
             
+            // Handle image upload if present
+            const imageInput = document.getElementById('reportPhoto');
+            let imageFile = null;
+            
+            if (imageInput.files.length > 0) {
+                imageFile = imageInput.files[0];
+                
+                // In a real implementation, you would upload this to your server or cloud storage
+                // For this demo, we'll just add it to the report data as a mock URL
+                reportData.image = 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80';
+            }
+            
             // In a real implementation, this would POST to your Google Apps Script web app
             console.log('Submitting report:', reportData);
             
-            // Simulate API call delay
+            // Prepare FormData for actual submission (commented out for demo)
+            /*
+            const formData = new FormData();
+            formData.append('type', reportData.type);
+            formData.append('severity', reportData.severity);
+            formData.append('description', reportData.description);
+            formData.append('reporter', reportData.reporter);
+            formData.append('lat', reportData.lat);
+            formData.append('lng', reportData.lng);
+            formData.append('timestamp', reportData.timestamp);
+            if (imageFile) formData.append('image', imageFile);
+            
+            fetch(GOOGLE_SHEETS_WEBAPP_URL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle success
+                submitBtn.disabled = false;
+                spinner.style.display = 'none';
+                
+                alert('Thank you for your report! This helps your community stay informed.');
+                
+                // Close modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('reportModal'));
+                modal.hide();
+                
+                // Refresh reports
+                loadCommunityReports();
+                
+                // Reset form
+                form.reset();
+                document.getElementById('imagePreview').innerHTML = '';
+            })
+            .catch(error => {
+                console.error('Error submitting report:', error);
+                submitBtn.disabled = false;
+                spinner.style.display = 'none';
+                alert('Error submitting report. Please try again.');
+            });
+            */
+            
+            // Simulate API call delay for demo
             setTimeout(() => {
                 // Hide loading state
                 submitBtn.disabled = false;
@@ -805,7 +1409,39 @@
                 
                 // Refresh reports
                 loadCommunityReports();
+                
+                // Reset form
+                form.reset();
+                document.getElementById('imagePreview').innerHTML = '';
             }, 1500);
+        }
+        
+        function previewImage(input) {
+            const previewContainer = document.getElementById('imagePreview');
+            previewContainer.innerHTML = '';
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const previewDiv = document.createElement('div');
+                    previewDiv.className = 'image-preview-container';
+                    previewDiv.innerHTML = `
+                        <img src="${e.target.result}" class="preview-image">
+                        <button type="button" class="remove-image-btn" onclick="removeImagePreview()">
+                            <i class="bi bi-x"></i>
+                        </button>
+                    `;
+                    previewContainer.appendChild(previewDiv);
+                };
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        
+        function removeImagePreview() {
+            document.getElementById('reportPhoto').value = '';
+            document.getElementById('imagePreview').innerHTML = '';
         }
         
         function initAnalyticsChart() {
@@ -814,32 +1450,50 @@
             reportsChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Frost', 'Flood', 'Drought', 'Storm', 'Other'],
+                    labels: ['Frost', 'Flood', 'Drought', 'Storm', 'Hail', 'Other'],
                     datasets: [{
-                        label: 'Reports Last 30 Days',
-                        data: [12, 8, 5, 7, 3],
+                        label: 'Reports Last 7 Days',
+                        data: [0, 0, 0, 0, 0, 0],
                         backgroundColor: [
                             '#2ecc71',
                             '#3498db',
                             '#f39c12',
                             '#e74c3c',
-                            '#9b59b6'
+                            '#9b59b6',
+                            '#34495e'
                         ],
                         borderColor: [
                             '#27ae60',
                             '#2980b9',
                             '#e67e22',
                             '#c0392b',
-                            '#8e44ad'
+                            '#8e44ad',
+                            '#2c3e50'
                         ],
                         borderWidth: 1
                     }]
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.raw}`;
+                                }
+                            }
+                        }
+                    },
                     scales: {
                         y: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
                         }
                     }
                 }
@@ -881,7 +1535,8 @@
                     reports.filter(r => r.type === 'flood').length,
                     reports.filter(r => r.type === 'drought').length,
                     reports.filter(r => r.type === 'storm').length,
-                    reports.filter(r => r.type === 'other').length
+                    reports.filter(r => r.type === 'hail').length,
+                    reports.filter(r => r.type === 'other' || r.type === 'wind').length
                 ];
                 reportsChart.update();
             }
@@ -907,6 +1562,9 @@
             
             return 'Just now';
         }
+        
+        // Make removeImagePreview available globally
+        window.removeImagePreview = removeImagePreview;
     </script>
 </body>
 </html>
