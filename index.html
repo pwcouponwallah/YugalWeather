@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YugalWeather | Microclimate Tracker for Farmers</title>
+    <title>AgriPredict | AI-Powered Crop Yield Optimization</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
     <style>
         :root {
-            --yugal-primary: #3498db;
-            --yugal-secondary: #2ecc71;
-            --yugal-accent: #f39c12;
-            --yugal-dark: #2c3e50;
-            --yugal-light: #ecf0f1;
-            --yugal-success: #27ae60;
-            --yugal-danger: #e74c3c;
-            --yugal-warning: #f1c40f;
+            --agripredict-primary: #2c5aa0;
+            --agripredict-secondary: #4caf50;
+            --agripredict-accent: #ff9800;
+            --agripredict-dark: #1e3c72;
+            --agripredict-light: #f5f9ff;
+            --agripredict-success: #66bb6a;
+            --agripredict-danger: #ef5350;
+            --agripredict-warning: #ffa726;
+            --agripredict-info: #42a5f5;
         }
 
         body {
@@ -26,17 +27,17 @@
         }
 
         .navbar {
-            background-color: var(--yugal-dark) !important;
+            background: linear-gradient(135deg, var(--agripredict-dark), var(--agripredict-primary)) !important;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        .yugal-brand {
+        .agripredict-brand {
             font-weight: 700;
-            color: var(--yugal-primary);
+            color: white;
         }
 
         .hero-section {
-            background: linear-gradient(135deg, var(--yugal-primary), var(--yugal-secondary));
+            background: linear-gradient(135deg, var(--agripredict-primary), var(--agripredict-secondary));
             color: white;
             border-radius: 0 0 20px 20px;
             padding: 3rem 0;
@@ -69,7 +70,7 @@
         }
 
         .weather-card {
-            border-left: 4px solid var(--yugal-accent);
+            border-left: 4px solid var(--agripredict-accent);
             transition: all 0.3s;
             border-radius: 8px;
         }
@@ -80,7 +81,7 @@
         }
 
         .report-btn {
-            background-color: var(--yugal-accent);
+            background-color: var(--agripredict-accent);
             color: white;
             border: none;
             border-radius: 50%;
@@ -100,19 +101,19 @@
 
         .report-btn:hover {
             transform: scale(1.1) rotate(90deg);
-            background-color: #e67e22;
+            background-color: #f57c00;
         }
 
         .severity-low {
-            border-left-color: var(--yugal-success);
+            border-left-color: var(--agripredict-success);
         }
 
         .severity-medium {
-            border-left-color: var(--yugal-warning);
+            border-left-color: var(--agripredict-warning);
         }
 
         .severity-high {
-            border-left-color: var(--yugal-danger);
+            border-left-color: var(--agripredict-danger);
         }
 
         .legend {
@@ -126,11 +127,11 @@
             z-index: 1000;
         }
 
-        .yugal-avatar {
+        .agripredict-avatar {
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background-color: var(--yugal-primary);
+            background-color: var(--agripredict-primary);
             color: white;
             display: flex;
             align-items: center;
@@ -157,7 +158,7 @@
         .feature-icon {
             font-size: 2rem;
             margin-bottom: 1rem;
-            color: var(--yugal-primary);
+            color: var(--agripredict-primary);
         }
 
         .instruction-step {
@@ -167,7 +168,7 @@
         }
 
         .step-number {
-            background-color: var(--yugal-primary);
+            background-color: var(--agripredict-primary);
             color: white;
             width: 30px;
             height: 30px;
@@ -196,7 +197,7 @@
 
         .benefit-icon {
             font-size: 1.75rem;
-            color: var(--yugal-primary);
+            color: var(--agripredict-primary);
             margin-bottom: 1rem;
         }
 
@@ -230,11 +231,82 @@
         }
 
         .nav-pills .nav-link.active {
-            background-color: var(--yugal-primary);
+            background-color: var(--agripredict-primary);
         }
 
         .nav-pills .nav-link {
-            color: var(--yugal-dark);
+            color: var(--agripredict-dark);
+        }
+
+        .prediction-card {
+            background: linear-gradient(135deg, #f5f9ff, #e3f2fd);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .crop-selector {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .crop-option {
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .crop-option:hover {
+            background-color: #e8f5e9;
+        }
+
+        .crop-option.active {
+            background-color: var(--agripredict-primary);
+            color: white;
+        }
+
+        .crop-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .prediction-result {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .yield-meter {
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .yield-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #4caf50);
+            border-radius: 10px;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .optimization-tip {
+            background-color: #e8f5e9;
+            border-left: 4px solid var(--agripredict-success);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1rem;
+        }
+
+        .language-selector {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 1000;
         }
 
         @media (max-width: 768px) {
@@ -249,6 +321,39 @@
             .display-4 {
                 font-size: 2.5rem;
             }
+            
+            .language-selector {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Animation for predictions */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        /* Dark mode support */
+        .dark-mode {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+        }
+
+        .dark-mode .card {
+            background-color: #2d2d2d;
+            color: #f0f0f0;
+        }
+
+        .dark-mode .text-muted {
+            color: #a0a0a0 !important;
         }
     </style>
 </head>
@@ -257,8 +362,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="#">
-                <i class="bi bi-cloud-sun-fill me-2" style="color: var(--yugal-primary);"></i>
-                <span class="yugal-brand">Yugal</span>Weather
+                <i class="bi bi-cloud-sun-fill me-2"></i>
+                <span class="agripredict-brand">AgriPredict</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -266,19 +371,19 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#map"><i class="bi bi-map me-1"></i> Live Map</a>
+                        <a class="nav-link active" href="#map"><i class="bi bi-map me-1"></i> Field Map</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#predict"><i class="bi bi-graph-up me-1"></i> Yield Prediction</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#reports"><i class="bi bi-list-ul me-1"></i> Reports</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#analytics"><i class="bi bi-graph-up me-1"></i> Analytics</a>
+                        <a class="nav-link" href="#analytics"><i class="bi bi-bar-chart me-1"></i> Analytics</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#features"><i class="bi bi-stars me-1"></i> Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about"><i class="bi bi-info-circle me-1"></i> About</a>
+                        <a class="nav-link" href="#optimization"><i class="bi bi-lightbulb me-1"></i> Optimization</a>
                     </li>
                 </ul>
                 <button class="btn btn-outline-light ms-3 d-none d-lg-block" data-bs-toggle="modal" data-bs-target="#reportModal">
@@ -288,22 +393,32 @@
         </div>
     </nav>
 
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <select class="form-select form-select-sm" id="languageSelector">
+            <option value="en">English</option>
+            <option value="or">Odia</option>
+            <option value="hi">Hindi</option>
+            <option value="te">Telugu</option>
+        </select>
+    </div>
+
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="container hero-content text-center">
-            <h1 class="display-4 fw-bold mb-3">Field-Level Weather Intelligence</h1>
-            <p class="lead mb-4">Real microclimate reports from farmers in your area</p>
+            <h1 class="display-4 fw-bold mb-3">AI-Powered Crop Yield Prediction</h1>
+            <p class="lead mb-4">Maximize your harvest with data-driven insights and field-level intelligence</p>
             <div class="d-flex justify-content-center flex-wrap gap-2 mb-4">
-                <span class="badge bg-white text-dark"><i class="bi bi-geo-alt-fill text-primary me-1"></i> Hyper-Local Data</span>
-                <span class="badge bg-white text-dark"><i class="bi bi-people-fill text-success me-1"></i> Community Powered</span>
-                <span class="badge bg-white text-dark"><i class="bi bi-lightning-charge-fill text-warning me-1"></i> Early Alerts</span>
+                <span class="badge bg-white text-dark"><i class="bi bi-robot text-primary me-1"></i> AI Predictions</span>
+                <span class="badge bg-white text-dark"><i class="bi bi-droplet text-info me-1"></i> Irrigation Optimization</span>
+                <span class="badge bg-white text-dark"><i class="bi bi-shield-check text-success me-1"></i> Pest Management</span>
             </div>
-            <div class="d-flex justify-content-center gap-3">
-                <a href="#features" class="btn btn-light btn-lg px-4">
-                    <i class="bi bi-play-circle me-2"></i> How It Works
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="#predict" class="btn btn-light btn-lg px-4">
+                    <i class="bi bi-graph-up me-2"></i> Predict Yield
                 </a>
                 <button class="btn btn-outline-light btn-lg px-4" data-bs-toggle="modal" data-bs-target="#reportModal">
-                    <i class="bi bi-plus-lg me-2"></i> Submit Report
+                    <i class="bi bi-plus-lg me-2"></i> Field Report
                 </button>
             </div>
         </div>
@@ -316,28 +431,28 @@
                 <div class="col-md-4">
                     <div class="feature-card card p-4 h-100">
                         <div class="feature-icon text-primary">
-                            <i class="bi bi-geo"></i>
+                            <i class="bi bi-robot"></i>
                         </div>
-                        <h4>Pinpoint Accuracy</h4>
-                        <p class="text-muted">See weather impacts at the field level, not just regional forecasts that often miss microclimates.</p>
+                        <h4>AI Yield Prediction</h4>
+                        <p class="text-muted">Advanced machine learning models predict crop yields based on weather, soil, and historical data.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="feature-card card p-4 h-100">
                         <div class="feature-icon text-success">
-                            <i class="bi bi-shield-check"></i>
+                            <i class="bi bi-droplet"></i>
                         </div>
-                        <h4>Crop Protection</h4>
-                        <p class="text-muted">Get early warnings about frost, floods, or droughts that could damage your crops.</p>
+                        <h4>Irrigation Optimization</h4>
+                        <p class="text-muted">Smart water management recommendations to reduce waste and improve crop health.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="feature-card card p-4 h-100">
                         <div class="feature-icon text-warning">
-                            <i class="bi bi-people"></i>
+                            <i class="bi bi-bug"></i>
                         </div>
-                        <h4>Community Network</h4>
-                        <p class="text-muted">Connect with other farmers sharing real-time observations from nearby fields.</p>
+                        <h4>Pest & Disease Alerts</h4>
+                        <p class="text-muted">Early warning system for potential pest outbreaks and disease risks in your area.</p>
                     </div>
                 </div>
             </div>
@@ -346,12 +461,146 @@
 
     <!-- Main Content -->
     <div class="container my-5">
+        <!-- Yield Prediction Section -->
+        <div class="row mb-5" id="predict">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-white">
+                        <h4 class="mb-0"><i class="bi bi-graph-up me-2"></i> Crop Yield Prediction</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="prediction-card">
+                                    <h5 class="mb-3">Select Your Crop</h5>
+                                    <div class="row g-2 crop-selector">
+                                        <div class="col-4">
+                                            <div class="crop-option active" data-crop="rice">
+                                                <div class="crop-icon"><i class="bi bi-tree"></i></div>
+                                                <div>Rice</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="crop-option" data-crop="wheat">
+                                                <div class="crop-icon"><i class="bi bi-tree"></i></div>
+                                                <div>Wheat</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="crop-option" data-crop="corn">
+                                                <div class="crop-icon"><i class="bi bi-tree"></i></div>
+                                                <div>Corn</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="crop-option" data-crop="sugarcane">
+                                                <div class="crop-icon"><i class="bi bi-tree"></i></div>
+                                                <div>Sugarcane</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="crop-option" data-crop="cotton">
+                                                <div class="crop-icon"><i class="bi bi-tree"></i></div>
+                                                <div>Cotton</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="crop-option" data-crop="pulses">
+                                                <div class="crop-icon"><i class="bi bi-tree"></i></div>
+                                                <div>Pulses</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h5 class="mt-4 mb-3">Field Information</h5>
+                                    <div class="mb-3">
+                                        <label class="form-label">Field Area (acres)</label>
+                                        <input type="number" class="form-control" id="fieldArea" value="5" min="1" max="1000">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Soil Type</label>
+                                        <select class="form-select" id="soilType">
+                                            <option value="loamy">Loamy</option>
+                                            <option value="clay">Clay</option>
+                                            <option value="sandy">Sandy</option>
+                                            <option value="silt">Silt</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Irrigation Type</label>
+                                        <select class="form-select" id="irrigationType">
+                                            <option value="drip">Drip Irrigation</option>
+                                            <option value="sprinkler">Sprinkler</option>
+                                            <option value="flood">Flood</option>
+                                            <option value="rainfed">Rainfed</option>
+                                        </select>
+                                    </div>
+                                    <button class="btn btn-primary w-100" id="predictYieldBtn">
+                                        <i class="bi bi-calculator me-2"></i> Predict Yield
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="prediction-result">
+                                    <h5 class="mb-3">Yield Prediction for <span id="selectedCrop">Rice</span></h5>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Predicted Yield</span>
+                                        <strong id="yieldValue">4.2 tons/acre</strong>
+                                    </div>
+                                    <div class="yield-meter">
+                                        <div class="yield-fill" style="width: 70%"></div>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-4">
+                                        <small>Low</small>
+                                        <small>High</small>
+                                    </div>
+
+                                    <h6 class="mb-3">Optimization Recommendations</h6>
+                                    <div class="optimization-tip">
+                                        <i class="bi bi-lightbulb me-2"></i> Increase phosphorus-based fertilizer by 15% during growth stage
+                                    </div>
+                                    <div class="optimization-tip">
+                                        <i class="bi bi-droplet me-2"></i> Adjust irrigation schedule to 3-day intervals instead of 5-day
+                                    </div>
+                                    <div class="optimization-tip">
+                                        <i class="bi bi-shield me-2"></i> Apply neem-based pesticide in next 7 days to prevent leaf folder
+                                    </div>
+
+                                    <div class="mt-4">
+                                        <h6>Expected Profit Calculation</h6>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="card bg-light mb-2">
+                                                    <div class="card-body py-2">
+                                                        <small>Total Yield</small>
+                                                        <h6 class="mb-0" id="totalYield">21 tons</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="card bg-light mb-2">
+                                                    <div class="card-body py-2">
+                                                        <small>Expected Revenue</small>
+                                                        <h6 class="mb-0" id="expectedRevenue">₹1,05,000</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Weather Map -->
         <div class="row mb-5" id="map">
             <div class="col-12">
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0"><i class="bi bi-map me-2"></i> Live Weather Impact Map</h4>
+                        <h4 class="mb-0"><i class="bi bi-map me-2"></i> Field Conditions Map</h4>
                         <div>
                             <button class="btn btn-sm btn-outline-secondary me-2" id="locateMeBtn">
                                 <i class="bi bi-geo-alt"></i> Locate Me
@@ -365,10 +614,10 @@
                         <div id="weatherMap" class="map-container"></div>
                         <div class="legend">
                             <div class="d-flex flex-column gap-1 small">
-                                <div><i class="bi bi-circle-fill text-success me-1"></i> Frost Report</div>
-                                <div><i class="bi bi-circle-fill text-primary me-1"></i> Flood Report</div>
-                                <div><i class="bi bi-circle-fill text-warning me-1"></i> Drought Report</div>
-                                <div><i class="bi bi-circle-fill text-danger me-1"></i> Storm Damage</div>
+                                <div><i class="bi bi-circle-fill text-success me-1"></i> Optimal Conditions</div>
+                                <div><i class="bi bi-circle-fill text-warning me-1"></i> Needs Attention</div>
+                                <div><i class="bi bi-circle-fill text-danger me-1"></i> Critical Issues</div>
+                                <div><i class="bi bi-circle-fill text-primary me-1"></i> Your Fields</div>
                             </div>
                         </div>
                     </div>
@@ -432,6 +681,24 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-6">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="bi bi-moisture me-2 text-success"></i>
+                                    <div>
+                                        <small class="text-muted">Soil Moisture</small>
+                                        <div id="soilMoisture">--%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="bi bi-thermometer-half me-2 text-danger"></i>
+                                    <div>
+                                        <small class="text-muted">Soil Temp</small>
+                                        <div id="soilTemp">--°C</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -463,113 +730,234 @@
             </div>
         </div>
 
-        <!-- How It Works -->
-        <section class="row mb-5 py-4" id="features">
-            <div class="col-12 mb-4 text-center">
-                <h2 class="fw-bold"><i class="bi bi-stars me-2 text-primary"></i> How YugalWeather Works</h2>
-                <p class="lead text-muted">Simple steps to protect your crops with community-powered weather data</p>
-            </div>
-            
-            <div class="col-lg-6 mb-4">
-                <div class="card h-100 border-0 shadow-sm">
+        <!-- Optimization Section -->
+        <div class="row mb-5" id="optimization">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white">
+                        <h4 class="mb-0"><i class="bi bi-lightbulb me-2"></i> Farming Optimization</h4>
+                    </div>
                     <div class="card-body">
-                        <h4 class="mb-4"><i class="bi bi-list-ol me-2 text-primary"></i> Quick Start Guide</h4>
+                        <ul class="nav nav-pills mb-4" id="optimizationTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="irrigation-tab" data-bs-toggle="pill" data-bs-target="#irrigation" type="button" role="tab">Irrigation</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="fertilizer-tab" data-bs-toggle="pill" data-bs-target="#fertilizer" type="button" role="tab">Fertilizer</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pest-tab" data-bs-toggle="pill" data-bs-target="#pest" type="button" role="tab">Pest Control</button>
+                            </li>
+                        </ul>
                         
-                        <div class="instruction-step">
-                            <div class="step-number">1</div>
-                            <div>
-                                <h5>Submit a Report</h5>
-                                <p class="text-muted mb-0">Click the "+" button to report frost, floods, or other weather impacts in your fields. Add photos for better documentation.</p>
+                        <div class="tab-content" id="optimizationTabContent">
+                            <div class="tab-pane fade show active" id="irrigation" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h5>Irrigation Schedule</h5>
+                                        <p>Based on current soil moisture and weather forecast, here's your optimized irrigation plan:</p>
+                                        
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Time</th>
+                                                        <th>Duration</th>
+                                                        <th>Water Amount</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Today</td>
+                                                        <td>06:00 AM</td>
+                                                        <td>45 minutes</td>
+                                                        <td>1200 liters</td>
+                                                        <td><span class="badge bg-success">Completed</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tomorrow</td>
+                                                        <td>06:30 AM</td>
+                                                        <td>60 minutes</td>
+                                                        <td>1500 liters</td>
+                                                        <td><span class="badge bg-info">Scheduled</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Aug 15</td>
+                                                        <td>07:00 AM</td>
+                                                        <td>30 minutes</td>
+                                                        <td>900 liters</td>
+                                                        <td><span class="badge bg-secondary">Upcoming</span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card bg-light">
+                                            <div class="card-body">
+                                                <h6>Water Savings</h6>
+                                                <div class="d-flex align-items-center mb-3">
+                                                    <div class="bg-primary text-white rounded-circle p-3 me-3">
+                                                        <i class="bi bi-droplet fs-4"></i>
+                                                    </div>
+                                                    <div>
+                                                        <h4 class="mb-0">32%</h4>
+                                                        <small class="text-muted">Compared to traditional methods</small>
+                                                    </div>
+                                                </div>
+                                                <div class="progress mb-2">
+                                                    <div class="progress-bar" role="progressbar" style="width: 32%" aria-valuenow="32" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <small>Estimated monthly savings: <strong>15,000 liters</strong></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="instruction-step">
-                            <div class="step-number">2</div>
-                            <div>
-                                <h5>View Local Reports</h5>
-                                <p class="text-muted mb-0">Check the map for recent reports from nearby farms. Color-coded pins show different weather events.</p>
+                            <div class="tab-pane fade" id="fertilizer" role="tabpanel">
+                                <h5>Fertilizer Recommendations</h5>
+                                <p>Based on soil analysis and crop requirements, here are your fertilizer recommendations:</p>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between">
+                                                    <h6>Nitrogen (N)</h6>
+                                                    <span class="badge bg-warning">Medium</span>
+                                                </div>
+                                                <div class="progress mb-2">
+                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <small>Apply 15kg/acre of urea in next 7 days</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between">
+                                                    <h6>Phosphorus (P)</h6>
+                                                    <span class="badge bg-danger">Low</span>
+                                                </div>
+                                                <div class="progress mb-2">
+                                                    <div class="progress-bar bg-info" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <small>Apply 20kg/acre of DAP immediately</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between">
+                                                    <h6>Potassium (K)</h6>
+                                                    <span class="badge bg-success">Optimal</span>
+                                                </div>
+                                                <div class="progress mb-2">
+                                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <small>No additional potassium needed at this time</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between">
+                                                    <h6>Organic Matter</h6>
+                                                    <span class="badge bg-info">Good</span>
+                                                </div>
+                                                <div class="progress mb-2">
+                                                    <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <small>Add 2 tons/acre of compost during next plowing</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="instruction-step">
-                            <div class="step-number">3</div>
-                            <div>
-                                <h5>Get Alerts</h5>
-                                <p class="text-muted mb-0">Receive notifications when severe weather is reported near your location.</p>
+                            <div class="tab-pane fade" id="pest" role="tabpanel">
+                                <h5>Pest & Disease Management</h5>
+                                <p>Based on regional data and crop stage, here are potential risks and preventive measures:</p>
+                                
+                                <div class="alert alert-warning">
+                                    <i class="bi bi-exclamation-triangle me-2"></i> High alert for Brown Plant Hopper in your area. Monitor fields closely.
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                                    <h6 class="mb-0">Brown Plant Hopper</h6>
+                                                    <span class="badge bg-danger">High Risk</span>
+                                                </div>
+                                                <p class="small mb-2">Likely to affect crops in next 10-14 days based on weather conditions.</p>
+                                                <div>
+                                                    <strong>Prevention:</strong> Apply Imidacloprid 17.8% SL @ 50 ml/acre
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                                    <h6 class="mb-0">Leaf Blast</h6>
+                                                    <span class="badge bg-warning">Medium Risk</span>
+                                                </div>
+                                                <p class="small mb-2">Possible outbreak due to recent humidity levels and temperature fluctuations.</p>
+                                                <div>
+                                                    <strong>Prevention:</strong> Apply Tricyclazole 75% WP @ 30g/acre
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                                    <h6 class="mb-0">Stem Borer</h6>
+                                                    <span class="badge bg-success">Low Risk</span>
+                                                </div>
+                                                <p class="small mb-2">Currently low activity in your region. Continue monitoring.</p>
+                                                <div>
+                                                    <strong>Prevention:</strong> Use pheromone traps @ 5/acre
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                                    <h6 class="mb-0">Bacterial Blight</h6>
+                                                    <span class="badge bg-info">Minimal Risk</span>
+                                                </div>
+                                                <p class="small mb-2">Conditions not favorable for outbreak at this time.</p>
+                                                <div>
+                                                    <strong>Prevention:</strong> Maintain proper water level and drainage
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="instruction-step">
-                            <div class="step-number">4</div>
-                            <div>
-                                <h5>Plan Accordingly</h5>
-                                <p class="text-muted mb-0">Use real field data to make informed decisions about irrigation, frost protection, and harvesting.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-4 text-center">
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reportModal">
-                                <i class="bi bi-plus-lg me-1"></i> Submit Your First Report
-                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="col-lg-6">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body">
-                        <h4 class="mb-4"><i class="bi bi-award me-2 text-primary"></i> Key Benefits</h4>
-                        
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <div class="benefit-card">
-                                    <div class="benefit-icon">
-                                        <i class="bi bi-thermometer-snow"></i>
-                                    </div>
-                                    <h5>Frost Protection</h5>
-                                    <p class="text-muted small">Get early warnings about temperature drops that could damage sensitive crops.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="benefit-card">
-                                    <div class="benefit-icon">
-                                        <i class="bi bi-droplet"></i>
-                                    </div>
-                                    <h5>Flood Alerts</h5>
-                                    <p class="text-muted small">See where heavy rains are causing field flooding before it reaches your land.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="benefit-card">
-                                    <div class="benefit-icon">
-                                        <i class="bi bi-sun"></i>
-                                    </div>
-                                    <h5>Drought Monitoring</h5>
-                                    <p class="text-muted small">Track soil moisture conditions across your region to optimize irrigation.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="benefit-card">
-                                    <div class="benefit-icon">
-                                        <i class="bi bi-wind"></i>
-                                    </div>
-                                    <h5>Storm Tracking</h5>
-                                    <p class="text-muted small">Monitor wind and hail damage reports to assess potential crop impacts.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        </div>
 
         <!-- Recent Reports -->
         <div class="row mb-5" id="reports">
             <div class="col-12">
                 <div class="card border-0 shadow-sm">
                     <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0"><i class="bi bi-list-ul me-2"></i> Recent Community Reports</h4>
+                        <h4 class="mb-0"><i class="bi bi-list-ul me-2"></i> Field Reports</h4>
                         <div>
                             <button class="btn btn-sm btn-outline-secondary me-2" id="filterReportsBtn">
                                 <i class="bi bi-funnel"></i> Filter
@@ -581,13 +969,13 @@
                     </div>
                     <div class="card-body">
                         <div class="alert alert-info mb-3">
-                            <i class="bi bi-info-circle me-2"></i> These reports are submitted by farmers like you. Help your community by sharing what you're seeing in your fields.
+                            <i class="bi bi-info-circle me-2"></i> These reports are submitted by farmers in your area. Help your community by sharing your observations.
                         </div>
                         <div id="reportsLoading" class="text-center py-4">
                             <div class="spinner-border text-primary" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
-                            <p class="mt-2 mb-0">Loading community reports...</p>
+                            <p class="mt-2 mb-0">Loading field reports...</p>
                         </div>
                         <div class="list-group" id="reportsList">
                             <!-- Reports will be inserted here -->
@@ -607,108 +995,117 @@
             <div class="col-12">
                 <div class="card border-0 shadow-sm">
                     <div class="card-header bg-white">
-                        <h4 class="mb-0"><i class="bi bi-graph-up me-2"></i> Weather Impact Analytics</h4>
+                        <h4 class="mb-0"><i class="bi bi-bar-chart me-2"></i> Farm Analytics</h4>
                     </div>
                     <div class="card-body">
                         <ul class="nav nav-pills mb-4" id="analyticsTabs" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="weekly-tab" data-bs-toggle="pill" data-bs-target="#weekly" type="button" role="tab">Weekly</button>
+                                <button class="nav-link active" id="yield-tab" data-bs-toggle="pill" data-bs-target="#yield" type="button" role="tab">Yield Trends</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="monthly-tab" data-bs-toggle="pill" data-bs-target="#monthly" type="button" role="tab">Monthly</button>
+                                <button class="nav-link" id="cost-tab" data-bs-toggle="pill" data-bs-target="#cost" type="button" role="tab">Cost Analysis</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="seasonal-tab" data-bs-toggle="pill" data-bs-target="#seasonal" type="button" role="tab">Seasonal</button>
+                                <button class="nav-link" id="comparison-tab" data-bs-toggle="pill" data-bs-target="#comparison" type="button" role="tab">Regional Comparison</button>
                             </li>
                         </ul>
                         
                         <div class="tab-content" id="analyticsTabContent">
-                            <div class="tab-pane fade show active" id="weekly" role="tabpanel">
+                            <div class="tab-pane fade show active" id="yield" role="tabpanel">
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="chart-container" style="position: relative; height: 300px;">
-                                            <canvas id="reportsChart"></canvas>
+                                            <canvas id="yieldChart"></canvas>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="card mb-3">
                                             <div class="card-body">
-                                                <h6 class="text-muted mb-2">Total Reports</h6>
-                                                <h3 class="mb-0" id="totalReports">0</h3>
-                                                <small class="text-success"><i class="bi bi-arrow-up"></i> <span id="reportChange">0%</span> from last week</small>
+                                                <h6 class="text-muted mb-2">Estimated Yield Increase</h6>
+                                                <h3 class="mb-0" id="yieldIncrease">12.5%</h3>
+                                                <small class="text-success"><i class="bi bi-arrow-up"></i> With recommended practices</small>
                                             </div>
                                         </div>
                                         <div class="card mb-3">
                                             <div class="card-body">
-                                                <h6 class="text-muted mb-2">Most Reported Issue</h6>
-                                                <h5 class="mb-1" id="topIssue">--</h5>
-                                                <small class="text-muted"><span id="topIssueCount">0</span> reports</small>
+                                                <h6 class="text-muted mb-2">Optimal Harvest Window</h6>
+                                                <h5 class="mb-1" id="harvestWindow">Oct 15-25</h5>
+                                                <small class="text-muted">Based on current growth rate</small>
                                             </div>
                                         </div>
                                         <div class="card">
                                             <div class="card-body">
-                                                <h6 class="text-muted mb-2">Active Contributors</h6>
-                                                <h5 class="mb-1" id="activeUsers">0</h5>
-                                                <small class="text-muted">this week</small>
+                                                <h6 class="text-muted mb-2">Yield Compared to Region</h6>
+                                                <h5 class="mb-1" id="regionalComparison">+8.3%</h5>
+                                                <small class="text-muted">Above regional average</small>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="monthly" role="tabpanel">
-                                <div class="alert alert-info">
-                                    <i class="bi bi-info-circle me-2"></i> Monthly analytics coming soon. Check back later!
+                            <div class="tab-pane fade" id="cost" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="chart-container" style="position: relative; height: 300px;">
+                                            <canvas id="costChart"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <h6 class="text-muted mb-2">Input Cost Reduction</h6>
+                                                <h3 class="mb-0" id="costReduction">7.2%</h3>
+                                                <small class="text-success"><i class="bi bi-arrow-down"></i> With optimized inputs</small>
+                                            </div>
+                                        </div>
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <h6 class="text-muted mb-2">Labor Cost Savings</h6>
+                                                <h5 class="mb-1" id="laborSavings">15%</h5>
+                                                <small class="text-muted">Through efficient scheduling</small>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h6 class="text-muted mb-2">ROI Improvement</h6>
+                                                <h5 class="mb-1" id="roiImprovement">18.5%</h5>
+                                                <small class="text-muted">Projected for this season</small>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="seasonal" role="tabpanel">
-                                <div class="alert alert-info">
-                                    <i class="bi bi-info-circle me-2"></i> Seasonal trends will be available after we collect more data in your area.
+                            <div class="tab-pane fade" id="comparison" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="chart-container" style="position: relative; height: 300px;">
+                                            <canvas id="comparisonChart"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <h6 class="text-muted mb-2">Regional Rank</h6>
+                                                <h3 class="mb-0" id="regionalRank">#4</h3>
+                                                <small class="text-muted">Out of 27 farms in your area</small>
+                                            </div>
+                                        </div>
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <h6 class="text-muted mb-2">Water Efficiency</h6>
+                                                <h5 class="mb-1" id="waterEfficiency">23% Better</h5>
+                                                <small class="text-muted">Than regional average</small>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h6 class="text-muted mb-2">Yield Gap</h6>
+                                                <h5 class="mb-1" id="yieldGap">+12%</h5>
+                                                <small class="text-muted">Potential to leading farms</small>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- About Section -->
-        <div class="row" id="about">
-            <div class="col-lg-8 offset-lg-2">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body text-center">
-                        <h2 class="mb-4"><i class="bi bi-info-circle text-primary me-2"></i> About YugalWeather</h2>
-                        <p class="lead">Precision weather intelligence for agriculture and local businesses</p>
-                        
-                        <div class="row mt-4">
-                            <div class="col-md-4 mb-4">
-                                <div class="p-3">
-                                    <div class="yugal-avatar">Y</div>
-                                    <h5 class="mt-3">For Farmers</h5>
-                                    <p class="text-muted">Get field-specific frost, flood, and drought alerts that regional forecasts miss.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4 mb-4">
-                                <div class="p-3">
-                                    <div class="yugal-avatar">W</div>
-                                    <h5 class="mt-3">Community Powered</h5>
-                                    <p class="text-muted">Real reports from real people in your exact area.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4 mb-4">
-                                <div class="p-3">
-                                    <div class="yugal-avatar">100%</div>
-                                    <h5 class="mt-3">Free Forever</h5>
-                                    <p class="text-muted">No subscriptions. No paywalls. Built to serve.</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-4">
-                            <h5 class="mb-3">Our Data Sources</h5>
-                            <div class="d-flex flex-wrap justify-content-center gap-3">
-                                <img src="https://openweathermap.org/themes/openweathermap/assets/img/logo_white_cropped.png" alt="OpenWeatherMap" style="height: 30px;">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Google_Sheets_2020_Logo.svg/1200px-Google_Sheets_2020_Logo.svg.png" alt="Google Sheets" style="height: 30px;">
-                                <img src="https://leafletjs.com/docs/images/logo.png" alt="Leaflet" style="height: 30px;">
                             </div>
                         </div>
                     </div>
@@ -727,55 +1124,72 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"><i class="bi bi-cloud-upload me-2"></i> Submit Weather Report</h5>
+                    <h5 class="modal-title"><i class="bi bi-cloud-upload me-2"></i> Submit Field Report</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="alert alert-info mb-3">
-                        <i class="bi bi-info-circle me-2"></i> Your report helps farmers in your area make better decisions. Please be accurate and detailed.
+                        <i class="bi bi-info-circle me-2"></i> Your report helps improve predictions for all farmers. Please be accurate and detailed.
                     </div>
                     
-                    <form id="weatherReportForm">
+                    <form id="fieldReportForm">
                         <div class="mb-3">
-                            <label class="form-label">Weather Type <span class="text-danger">*</span></label>
+                            <label class="form-label">Report Type <span class="text-danger">*</span></label>
                             <select class="form-select" id="reportType" required>
-                                <option value="">Select weather type...</option>
-                                <option value="frost">Frost</option>
-                                <option value="flood">Flood</option>
-                                <option value="drought">Drought</option>
-                                <option value="storm">Storm Damage</option>
-                                <option value="hail">Hail</option>
-                                <option value="wind">High Winds</option>
+                                <option value="">Select report type...</option>
+                                <option value="growth">Crop Growth</option>
+                                <option value="pest">Pest/Disease</option>
+                                <option value="soil">Soil Condition</option>
+                                <option value="weather">Weather Impact</option>
+                                <option value="harvest">Harvest Data</option>
                                 <option value="other">Other</option>
                             </select>
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label">Severity <span class="text-danger">*</span></label>
-                            <select class="form-select" id="reportSeverity" required>
-                                <option value="low">Low - Minor impact</option>
-                                <option value="medium" selected>Medium - Moderate impact</option>
-                                <option value="high">High - Severe impact</option>
+                            <label class="form-label">Crop <span class="text-danger">*</span></label>
+                            <select class="form-select" id="reportCrop" required>
+                                <option value="">Select crop...</option>
+                                <option value="rice">Rice</option>
+                                <option value="wheat">Wheat</option>
+                                <option value="corn">Corn</option>
+                                <option value="sugarcane">Sugarcane</option>
+                                <option value="cotton">Cotton</option>
+                                <option value="pulses">Pulses</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Growth Stage</label>
+                            <select class="form-select" id="growthStage">
+                                <option value="seedling">Seedling</option>
+                                <option value="vegetative">Vegetative</option>
+                                <option value="flowering">Flowering</option>
+                                <option valuefruiting">Fruiting</option>
+                                <option value="maturity">Maturity</option>
+                                <option value="harvest">Harvest</option>
                             </select>
                         </div>
                         
                         <div class="mb-3">
                             <label class="form-label">Description <span class="text-danger">*</span></label>
-                            <textarea class="form-control" id="reportDescription" rows="3" placeholder="Describe what you're observing in your fields..." required></textarea>
-                            <small class="text-muted">Example: "Unexpected frost last night damaged strawberry blossoms in northeast quadrant of field."</small>
+                            <textarea class="form-control" id="reportDescription" rows="3" placeholder="Describe your observations..." required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Yield Data (kg/acre)</label>
+                            <input type="number" class="form-control" id="yieldData" placeholder="Enter yield if applicable">
                         </div>
                         
                         <div class="mb-3">
                             <label class="form-label">Photo Evidence (Optional)</label>
                             <input type="file" class="form-control" id="reportPhoto" accept="image/*">
-                            <small class="text-muted">Upload a photo showing the weather impact on your crops.</small>
                             <div id="imagePreview" class="mt-2"></div>
                         </div>
                         
                         <div class="mb-3">
                             <label class="form-label">Your Name (Optional)</label>
-                            <input type="text" class="form-control" id="reporterName" placeholder="Farmer John">
-                            <small class="text-muted">This will be displayed with your report.</small>
+                            <input type="text" class="form-control" id="reporterName" placeholder="Farmer Name">
                         </div>
                         
                         <div class="mb-3">
@@ -806,10 +1220,10 @@
             <div class="row">
                 <div class="col-lg-4 mb-4 mb-lg-0">
                     <h5 class="d-flex align-items-center mb-3">
-                        <i class="bi bi-cloud-sun-fill me-2" style="color: var(--yugal-primary);"></i>
-                        <span class="yugal-brand">Yugal</span>Weather
+                        <i class="bi bi-cloud-sun-fill me-2"></i>
+                        <span class="agripredict-brand">AgriPredict</span>
                     </h5>
-                    <p class="text-muted">Precision weather for agriculture and local communities.</p>
+                    <p class="text-muted">AI-powered crop yield prediction and optimization for modern farmers.</p>
                     <div class="d-flex gap-3 mt-3">
                         <a href="#" class="text-muted"><i class="bi bi-twitter"></i></a>
                         <a href="#" class="text-muted"><i class="bi bi-facebook"></i></a>
@@ -819,25 +1233,25 @@
                 <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
                     <h6>Navigation</h6>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#map" class="text-muted">Live Map</a></li>
+                        <li class="mb-2"><a href="#map" class="text-muted">Field Map</a></li>
+                        <li class="mb-2"><a href="#predict" class="text-muted">Yield Prediction</a></li>
                         <li class="mb-2"><a href="#reports" class="text-muted">Reports</a></li>
                         <li class="mb-2"><a href="#analytics" class="text-muted">Analytics</a></li>
-                        <li class="mb-2"><a href="#features" class="text-muted">Features</a></li>
-                        <li><a href="#about" class="text-muted">About</a></li>
+                        <li><a href="#optimization" class="text-muted">Optimization</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
                     <h6>Resources</h6>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-muted">Help Center</a></li>
-                        <li class="mb-2"><a href="#" class="text-muted">Farmers Guide</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted">Farmer's Guide</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted">Crop Library</a></li>
                         <li class="mb-2"><a href="#" class="text-muted">API Docs</a></li>
                         <li><a href="#" class="text-muted">Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-4 col-md-4">
-                    <h6>Subscribe to Alerts</h6>
-                    <p class="text-muted small">Get email notifications for severe weather in your area.</p>
+                    <h6>Subscribe to Updates</h6>
+                    <p class="text-muted small">Get the latest farming insights and platform updates.</p>
                     <form class="mt-3">
                         <div class="input-group mb-3">
                             <input type="email" class="form-control" placeholder="Your email" aria-label="Your email">
@@ -848,7 +1262,7 @@
             </div>
             <hr class="my-4 bg-secondary">
             <div class="text-center">
-                <small class="text-muted">&copy; 2025 YugalWeather. All weather reports are user-submitted.</small>
+                <small class="text-muted">&copy; 2025 AgriPredict. Developed for the Government of Odisha's Agriculture Innovation Challenge.</small>
             </div>
         </div>
     </footer>
@@ -858,15 +1272,16 @@
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Configuration - Replace with your actual API keys
-        const OPENWEATHER_API_KEY = 'b41ebce0340aaa233ed0433f4b17023b'; // This is a placeholder - get a real key from openweathermap.org
+        // Configuration
+        const OPENWEATHER_API_KEY = 'b41ebce0340aaa233ed0433f4b17023b'; // Replace with your actual API key
         const GOOGLE_SHEETS_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbza5S5-REtVvOH8GQWuqGysymxcTrcpBcI_3tPNCTzyv9I792En0DT3n3AfYYoxxZZX/exec'; // Replace with your deployed Google Apps Script URL
         
         // Global variables
         let weatherMap;
         let userLocation = null;
-        let reportsChart;
+        let yieldChart, costChart, comparisonChart;
         let currentReports = [];
+        let currentCrop = 'rice';
         
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
@@ -882,20 +1297,27 @@
             // Load community reports
             loadCommunityReports();
             
-            // Initialize analytics chart
-            initAnalyticsChart();
+            // Initialize analytics charts
+            initAnalyticsCharts();
+            
+            // Set up crop selection
+            setupCropSelection();
+            
+            // Set up language selector
+            document.getElementById('languageSelector').addEventListener('change', function(e) {
+                // In a real implementation, this would change the UI language
+                alert('Language changed to ' + e.target.options[e.target.selectedIndex].text);
+            });
         });
         
         function initMap() {
-            // Create the map centered on a default location (will be updated when we get user's location)
-            weatherMap = L.map('weatherMap').setView([51.505, -0.09], 13);
+            // Create the map centered on a default location
+            weatherMap = L.map('weatherMap').setView([20.9517, 85.0985], 10); // Default to Odisha coordinates
             
             // Add OpenStreetMap tiles
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(weatherMap);
-            
-            // Add a marker for the user's location (will be added when location is available)
         }
         
         function setupEventListeners() {
@@ -912,9 +1334,9 @@
             document.getElementById('loadMoreReportsBtn').addEventListener('click', loadMoreReports);
             
             // Report form submission
-            document.getElementById('weatherReportForm').addEventListener('submit', function(e) {
+            document.getElementById('fieldReportForm').addEventListener('submit', function(e) {
                 e.preventDefault();
-                submitWeatherReport();
+                submitFieldReport();
             });
             
             // Image upload preview
@@ -926,6 +1348,98 @@
             document.getElementById('reportModal').addEventListener('shown.bs.modal', function() {
                 updateLocationStatus();
             });
+            
+            // Predict yield button
+            document.getElementById('predictYieldBtn').addEventListener('click', predictYield);
+        }
+        
+        function setupCropSelection() {
+            const cropOptions = document.querySelectorAll('.crop-option');
+            cropOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove active class from all options
+                    cropOptions.forEach(opt => opt.classList.remove('active'));
+                    
+                    // Add active class to clicked option
+                    this.classList.add('active');
+                    
+                    // Update current crop
+                    currentCrop = this.getAttribute('data-crop');
+                    document.getElementById('selectedCrop').textContent = currentCrop.charAt(0).toUpperCase() + currentCrop.slice(1);
+                    
+                    // Update prediction
+                    predictYield();
+                });
+            });
+        }
+        
+        function predictYield() {
+            const fieldArea = parseFloat(document.getElementById('fieldArea').value) || 5;
+            const soilType = document.getElementById('soilType').value;
+            const irrigationType = document.getElementById('irrigationType').value;
+            
+            // Simulate AI prediction based on inputs
+            let baseYield;
+            switch(currentCrop) {
+                case 'rice': baseYield = 4.2; break;
+                case 'wheat': baseYield = 3.8; break;
+                case 'corn': baseYield = 5.1; break;
+                case 'sugarcane': baseYield = 72; break; // tons per acre
+                case 'cotton': baseYield = 1.8; break; // bales per acre
+                case 'pulses': baseYield = 1.2; break;
+                default: baseYield = 4.0;
+            }
+            
+            // Adjust based on soil type
+            let soilMultiplier = 1.0;
+            switch(soilType) {
+                case 'loamy': soilMultiplier = 1.15; break;
+                case 'clay': soilMultiplier = 0.9; break;
+                case 'sandy': soilMultiplier = 0.8; break;
+                case 'silt': soilMultiplier = 1.05; break;
+            }
+            
+            // Adjust based on irrigation
+            let irrigationMultiplier = 1.0;
+            switch(irrigationType) {
+                case 'drip': irrigationMultiplier = 1.2; break;
+                case 'sprinkler': irrigationMultiplier = 1.1; break;
+                case 'flood': irrigationMultiplier = 0.95; break;
+                case 'rainfed': irrigationMultiplier = 0.85; break;
+            }
+            
+            // Calculate final yield
+            const predictedYield = baseYield * soilMultiplier * irrigationMultiplier;
+            
+            // Update UI
+            const yieldUnit = currentCrop === 'sugarcane' ? 'tons' : (currentCrop === 'cotton' ? 'bales' : 'tons');
+            document.getElementById('yieldValue').textContent = predictedYield.toFixed(1) + ' ' + yieldUnit + '/acre';
+            document.getElementById('totalYield').textContent = (predictedYield * fieldArea).toFixed(1) + ' ' + yieldUnit;
+            
+            // Calculate expected revenue (simplified)
+            let pricePerUnit;
+            switch(currentCrop) {
+                case 'rice': pricePerUnit = 2500; break;
+                case 'wheat': pricePerUnit = 2200; break;
+                case 'corn': pricePerUnit = 1800; break;
+                case 'sugarcane': pricePerUnit = 350; break; // per ton
+                case 'cotton': pricePerUnit = 6000; break; // per bale
+                case 'pulses': pricePerUnit = 7000; break; // per ton
+                default: pricePerUnit = 2000;
+            }
+            
+            const expectedRevenue = predictedYield * fieldArea * pricePerUnit;
+            document.getElementById('expectedRevenue').textContent = '₹' + expectedRevenue.toLocaleString('en-IN');
+            
+            // Update yield meter
+            document.querySelector('.yield-fill').style.width = (predictedYield / 6 * 100) + '%';
+            
+            // Add animation for visual feedback
+            const yieldResult = document.querySelector('.prediction-result');
+            yieldResult.classList.add('pulse-animation');
+            setTimeout(() => {
+                yieldResult.classList.remove('pulse-animation');
+            }, 1000);
         }
         
         function getUserLocation() {
@@ -960,8 +1474,8 @@
                     },
                     function(error) {
                         console.error('Error getting location:', error);
-                        // Default to a central location if geolocation fails
-                        userLocation = { lat: 51.505, lng: -0.09 };
+                        // Default to Odisha location if geolocation fails
+                        userLocation = { lat: 20.9517, lng: 85.0985 };
                         loadWeatherData(userLocation.lat, userLocation.lng);
                         
                         // Update location status in report modal
@@ -970,8 +1484,8 @@
                 );
             } else {
                 console.log('Geolocation is not supported by this browser.');
-                // Default to a central location
-                userLocation = { lat: 51.505, lng: -0.09 };
+                // Default to Odisha location
+                userLocation = { lat: 20.9517, lng: 85.0985 };
                 loadWeatherData(userLocation.lat, userLocation.lng);
                 
                 // Update location status in report modal
@@ -985,7 +1499,7 @@
                 return;
             }
             
-            // Display coordinates (in a real app, you might reverse geocode to get an address)
+            // Display coordinates
             document.getElementById('locationStatus').innerHTML = `
                 <i class="bi bi-check-circle-fill text-success me-2"></i>
                 Location detected: ${userLocation.lat.toFixed(4)}, ${userLocation.lng.toFixed(4)}
@@ -1047,6 +1561,15 @@
                 .catch(error => {
                     console.error('Error fetching forecast data:', error);
                 });
+            
+            // Simulate soil data (in a real app, this would come from IoT sensors or satellite data)
+            simulateSoilData();
+        }
+        
+        function simulateSoilData() {
+            // Generate random soil data for demonstration
+            document.getElementById('soilMoisture').textContent = Math.floor(Math.random() * 30 + 40) + '%';
+            document.getElementById('soilTemp').textContent = Math.floor(Math.random() * 10 + 22) + '°C';
         }
         
         function displayCurrentWeather(data) {
@@ -1072,7 +1595,7 @@
             const forecastTable = document.getElementById('forecastTable').querySelector('tbody');
             forecastTable.innerHTML = '';
             
-            // We'll show one forecast per day (every 8th item in the 3-hour forecast)
+            // Show one forecast per day (every 8th item in the 3-hour forecast)
             for (let i = 0; i < data.list.length; i += 8) {
                 const forecast = data.list[i];
                 const forecastDate = new Date(forecast.dt * 1000);
@@ -1104,8 +1627,7 @@
             loadingElement.style.display = 'block';
             document.getElementById('loadMoreReportsBtn').style.display = 'none';
             
-            // In a real implementation, this would fetch from your Google Sheets backend
-            // For this demo, we'll use mock data
+            // In a real implementation, this would fetch from your backend
             setTimeout(() => {
                 currentReports = generateMockReports();
                 
@@ -1128,9 +1650,6 @@
                 if (currentReports.length > 5) {
                     document.getElementById('loadMoreReportsBtn').style.display = 'inline-block';
                 }
-                
-                // Update analytics
-                updateAnalytics(currentReports);
             }, 1000);
         }
         
@@ -1204,11 +1723,11 @@
                 // Add to map
                 let markerColor;
                 switch(report.type) {
-                    case 'frost': markerColor = '#2ecc71'; break;
-                    case 'flood': markerColor = '#3498db'; break;
-                    case 'drought': markerColor = '#f39c12'; break;
-                    case 'storm': markerColor = '#e74c3c'; break;
-                    case 'hail': markerColor = '#9b59b6'; break;
+                    case 'growth': markerColor = '#2ecc71'; break;
+                    case 'pest': markerColor = '#e74c3c'; break;
+                    case 'soil': markerColor = '#f39c12'; break;
+                    case 'weather': markerColor = '#3498db'; break;
+                    case 'harvest': markerColor = '#9b59b6'; break;
                     default: markerColor = '#34495e';
                 }
                 
@@ -1240,16 +1759,16 @@
         function generateMockReports() {
             if (!userLocation) return [];
             
-            const reportTypes = ['frost', 'flood', 'drought', 'storm', 'hail', 'wind'];
+            const reportTypes = ['growth', 'pest', 'soil', 'weather', 'harvest'];
             const reporters = ['Farm Fresh Co.', 'River Valley Farms', 'Sunny Acres', 'Green Thumb Nursery', 'Organic Valley', 'Heritage Farms'];
             const severities = ['low', 'medium', 'high'];
             const descriptions = [
-                'Unexpected frost damaged early strawberry blossoms',
-                'Heavy rains caused field flooding in low-lying areas',
-                'Soil moisture levels dropping faster than usual',
-                'Hail storm damaged greenhouse structures',
-                'High winds knocked down corn plants in north field',
-                'Extended dry period stressing young plants'
+                'Rice plants at flowering stage, looking healthy',
+                'Found brown plant hopper infestation in northwest corner of field',
+                'Soil pH testing at 6.8, ideal for current crop',
+                'Heavy rains caused some waterlogging in low-lying areas',
+                'Harvested first batch of wheat, yield better than expected',
+                'Corn plants showing signs of nitrogen deficiency'
             ];
             
             const mockImages = [
@@ -1311,7 +1830,7 @@
             return deg * (Math.PI/180);
         }
         
-        function submitWeatherReport() {
+        function submitFieldReport() {
             if (!userLocation) {
                 alert('Please enable location services to submit a report.');
                 return;
@@ -1319,7 +1838,7 @@
             
             const submitBtn = document.getElementById('submitReportBtn');
             const spinner = document.getElementById('submitSpinner');
-            const form = document.getElementById('weatherReportForm');
+            const form = document.getElementById('fieldReportForm');
             
             // Show loading state
             submitBtn.disabled = true;
@@ -1328,8 +1847,10 @@
             // Get form data
             const reportData = {
                 type: document.getElementById('reportType').value,
-                severity: document.getElementById('reportSeverity').value,
+                crop: document.getElementById('reportCrop').value,
+                growthStage: document.getElementById('growthStage').value,
                 description: document.getElementById('reportDescription').value,
+                yieldData: document.getElementById('yieldData').value,
                 reporter: document.getElementById('reporterName').value || 'Anonymous',
                 lat: userLocation.lat,
                 lng: userLocation.lng,
@@ -1342,57 +1863,12 @@
             
             if (imageInput.files.length > 0) {
                 imageFile = imageInput.files[0];
-                
-                // In a real implementation, you would upload this to your server or cloud storage
-                // For this demo, we'll just add it to the report data as a mock URL
+                // In a real implementation, you would upload this to your server
                 reportData.image = 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80';
             }
             
-            // In a real implementation, this would POST to your Google Apps Script web app
+            // In a real implementation, this would POST to your backend
             console.log('Submitting report:', reportData);
-            
-            // Prepare FormData for actual submission (commented out for demo)
-            /*
-            const formData = new FormData();
-            formData.append('type', reportData.type);
-            formData.append('severity', reportData.severity);
-            formData.append('description', reportData.description);
-            formData.append('reporter', reportData.reporter);
-            formData.append('lat', reportData.lat);
-            formData.append('lng', reportData.lng);
-            formData.append('timestamp', reportData.timestamp);
-            if (imageFile) formData.append('image', imageFile);
-            
-            fetch(GOOGLE_SHEETS_WEBAPP_URL, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Handle success
-                submitBtn.disabled = false;
-                spinner.style.display = 'none';
-                
-                alert('Thank you for your report! This helps your community stay informed.');
-                
-                // Close modal
-                const modal = bootstrap.Modal.getInstance(document.getElementById('reportModal'));
-                modal.hide();
-                
-                // Refresh reports
-                loadCommunityReports();
-                
-                // Reset form
-                form.reset();
-                document.getElementById('imagePreview').innerHTML = '';
-            })
-            .catch(error => {
-                console.error('Error submitting report:', error);
-                submitBtn.disabled = false;
-                spinner.style.display = 'none';
-                alert('Error submitting report. Please try again.');
-            });
-            */
             
             // Simulate API call delay for demo
             setTimeout(() => {
@@ -1401,7 +1877,7 @@
                 spinner.style.display = 'none';
                 
                 // Show success message
-                alert('Thank you for your report! This helps your community stay informed.');
+                alert('Thank you for your report! This helps improve predictions for all farmers.');
                 
                 // Close modal
                 const modal = bootstrap.Modal.getInstance(document.getElementById('reportModal'));
@@ -1444,102 +1920,128 @@
             document.getElementById('imagePreview').innerHTML = '';
         }
         
-        function initAnalyticsChart() {
-            const ctx = document.getElementById('reportsChart').getContext('2d');
-            
-            reportsChart = new Chart(ctx, {
-                type: 'bar',
+        function initAnalyticsCharts() {
+            // Yield Trends Chart
+            const yieldCtx = document.getElementById('yieldChart').getContext('2d');
+            yieldChart = new Chart(yieldCtx, {
+                type: 'line',
                 data: {
-                    labels: ['Frost', 'Flood', 'Drought', 'Storm', 'Hail', 'Other'],
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7'],
                     datasets: [{
-                        label: 'Reports Last 7 Days',
-                        data: [0, 0, 0, 0, 0, 0],
-                        backgroundColor: [
-                            '#2ecc71',
-                            '#3498db',
-                            '#f39c12',
-                            '#e74c3c',
-                            '#9b59b6',
-                            '#34495e'
-                        ],
-                        borderColor: [
-                            '#27ae60',
-                            '#2980b9',
-                            '#e67e22',
-                            '#c0392b',
-                            '#8e44ad',
-                            '#2c3e50'
-                        ],
-                        borderWidth: 1
+                        label: 'Your Yield Projection',
+                        data: [2.1, 2.8, 3.5, 4.0, 4.3, 4.5, 4.7],
+                        borderColor: '#2c5aa0',
+                        backgroundColor: 'rgba(44, 90, 160, 0.1)',
+                        fill: true,
+                        tension: 0.3
+                    }, {
+                        label: 'Regional Average',
+                        data: [2.0, 2.5, 3.0, 3.4, 3.7, 3.9, 4.1],
+                        borderColor: '#4caf50',
+                        backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        borderDash: [5, 5]
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return `${context.dataset.label}: ${context.raw}`;
-                                }
-                            }
+                        title: {
+                            display: true,
+                            text: 'Yield Projection (tons/acre)'
                         }
                     },
                     scales: {
                         y: {
                             beginAtZero: true,
-                            ticks: {
-                                precision: 0
+                            title: {
+                                display: true,
+                                text: 'Tons per Acre'
                             }
                         }
                     }
                 }
             });
-        }
-        
-        function updateAnalytics(reports) {
-            // Update report counts
-            document.getElementById('totalReports').textContent = reports.length;
-            document.getElementById('reportChange').textContent = `${Math.floor(Math.random() * 30) + 5}%`;
             
-            // Find most reported issue
-            const issueCounts = {};
-            reports.forEach(report => {
-                issueCounts[report.type] = (issueCounts[report.type] || 0) + 1;
+            // Cost Analysis Chart
+            const costCtx = document.getElementById('costChart').getContext('2d');
+            costChart = new Chart(costCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Seeds', 'Fertilizer', 'Pesticides', 'Labor', 'Water', 'Equipment'],
+                    datasets: [{
+                        label: 'Current Costs',
+                        data: [12000, 18000, 8000, 25000, 5000, 15000],
+                        backgroundColor: 'rgba(44, 90, 160, 0.7)'
+                    }, {
+                        label: 'Optimized Costs',
+                        data: [12000, 15000, 6000, 22000, 3500, 15000],
+                        backgroundColor: 'rgba(76, 175, 80, 0.7)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Cost Analysis (₹)'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Cost in ₹'
+                            }
+                        }
+                    }
+                }
             });
             
-            let topIssue = '';
-            let topCount = 0;
-            
-            for (const [issue, count] of Object.entries(issueCounts)) {
-                if (count > topCount) {
-                    topIssue = issue;
-                    topCount = count;
+            // Regional Comparison Chart
+            const comparisonCtx = document.getElementById('comparisonChart').getContext('2d');
+            comparisonChart = new Chart(comparisonCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Yield', 'Water Efficiency', 'Cost Control', 'Soil Health', 'Crop Quality'],
+                    datasets: [{
+                        label: 'Your Farm',
+                        data: [85, 90, 75, 80, 85],
+                        backgroundColor: 'rgba(44, 90, 160, 0.2)',
+                        borderColor: '#2c5aa0',
+                        pointBackgroundColor: '#2c5aa0'
+                    }, {
+                        label: 'Regional Average',
+                        data: [70, 65, 60, 75, 70],
+                        backgroundColor: 'rgba(76, 175, 80, 0.2)',
+                        borderColor: '#4caf50',
+                        pointBackgroundColor: '#4caf50'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Regional Comparison (%)'
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    }
                 }
-            }
-            
-            document.getElementById('topIssue').textContent = topIssue.charAt(0).toUpperCase() + topIssue.slice(1);
-            document.getElementById('topIssueCount').textContent = topCount;
-            
-            // Update active users
-            const uniqueReporters = new Set(reports.map(r => r.reporter));
-            document.getElementById('activeUsers').textContent = uniqueReporters.size;
-            
-            // Update chart data
-            if (reportsChart) {
-                reportsChart.data.datasets[0].data = [
-                    reports.filter(r => r.type === 'frost').length,
-                    reports.filter(r => r.type === 'flood').length,
-                    reports.filter(r => r.type === 'drought').length,
-                    reports.filter(r => r.type === 'storm').length,
-                    reports.filter(r => r.type === 'hail').length,
-                    reports.filter(r => r.type === 'other' || r.type === 'wind').length
-                ];
-                reportsChart.update();
-            }
+            });
         }
         
         function getTimeAgo(date) {
